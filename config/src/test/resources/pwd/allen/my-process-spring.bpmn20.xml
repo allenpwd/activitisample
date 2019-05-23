@@ -14,7 +14,7 @@
 		<userTask id="someTask" name="Activiti is awesome!" />
 		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="helloBean" />
 		<!-- 调用spring容器里的helloService的sayHello方法 -->
-		<serviceTask id="helloBean" activiti:expression="${helloBean.sayHell()}" />
+		<serviceTask id="helloBean" activiti:expression="${helloBean.sayHello()}" />
 		<sequenceFlow id="flow3" sourceRef="helloBean" targetRef="end" />
 
 		<endEvent id="end" />

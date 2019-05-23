@@ -15,6 +15,7 @@ public class ConfigTest {
 
     @Test
     public void testConfig1() {
+        //默认配置文件为activiti.cfg.xml， beanId为processEngineConfiguration
         ProcessEngineConfiguration configuration = ProcessEngineConfiguration
                 .createProcessEngineConfigurationFromResourceDefault();
 
@@ -23,8 +24,10 @@ public class ConfigTest {
 
     @Test
     public void testConfig2() {
+        // 不需要读取任何配置文件，采用默认的流程引擎配置
+        // databaseSchemaUpdate=create-drop jdbcUrl=jdbc:h2:mem:activiti
         ProcessEngineConfiguration configuration = ProcessEngineConfiguration
-                .createStandaloneProcessEngineConfiguration();
+                .createStandaloneInMemProcessEngineConfiguration();
 
         LOGGER.info("configuration {}", configuration);
     }

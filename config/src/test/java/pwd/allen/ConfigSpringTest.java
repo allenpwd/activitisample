@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import pwd.allen.delegate.HelloBean;
 
 /**
  * @author pwd
@@ -35,11 +36,16 @@ public class ConfigSpringTest {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private HelloBean helloBean;
+
     @Test
     @Deployment(resources = {"pwd/allen/my-process-spring.bpmn20.xml"})
     public void test() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("my-process");
         Task task = taskService.createTaskQuery().singleResult();
         taskService.complete(task.getId());
+
+        helloBean.sayHello();
     }
 }
