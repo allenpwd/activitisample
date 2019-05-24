@@ -1,5 +1,7 @@
 package pwd.allen;
 
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -27,6 +29,10 @@ public class ConfigMyInterceptorTest {
     @Test
     @Deployment(resources = {"pwd/allen/my-process.bpmn20.xml"})
     public void test() {
+
+        Map<String, ProcessEngine> processEngines = ProcessEngines.getProcessEngines();
+        System.out.println(processEngines.size());
+
         Map<String, Object> vars = new HashMap<String, Object>();
         vars.put("day", 10);
         ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", vars);

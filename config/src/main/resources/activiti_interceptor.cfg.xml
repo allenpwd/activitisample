@@ -9,6 +9,7 @@
         <bean class="pwd.allen.interceptor.MyInterceptor"/>
       </list>
     </property>
+    <property name="processEngineName" value="myInterceptorEngine" />
   </bean>
 
 </beans>

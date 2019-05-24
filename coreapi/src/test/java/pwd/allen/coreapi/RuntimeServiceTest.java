@@ -33,7 +33,7 @@ public class RuntimeServiceTest {
      * 启动流程
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testStartProcess() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -52,7 +52,7 @@ public class RuntimeServiceTest {
      * 使用processInstanceBuilder启动流程
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testProcessInstanceBuilder() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -75,7 +75,7 @@ public class RuntimeServiceTest {
      * 操作流程变量
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testVariables() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -103,7 +103,7 @@ public class RuntimeServiceTest {
      * 查询流程实例
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testProcessInstanceQuery() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -122,7 +122,7 @@ public class RuntimeServiceTest {
      * 查询流程对象
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testExecutionQuery() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -144,7 +144,7 @@ public class RuntimeServiceTest {
      * 使用trigger触发receiveTask节点
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process-trigger.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process-trigger.bpmn20.xml")
     public void testTrigger() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -170,7 +170,7 @@ public class RuntimeServiceTest {
      * 触发信号捕获事件signalEventReceived
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process-signal.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process-signal.bpmn20.xml")
     public void testSignalEventReceived() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
@@ -195,7 +195,7 @@ public class RuntimeServiceTest {
      * 触发消息捕获事件messageEventReceived，与信号不同的是需要指定某个execution
      */
     @Test
-    @Deployment(resources = "pwd/allen/my-process-message.bpmn20.xml")
+    @Deployment(resources = "bpmn/my-process-message.bpmn20.xml")
     public void testMessage() {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 

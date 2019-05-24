@@ -30,7 +30,7 @@ public class RepositoryServiceTest {
 
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
         deploymentBuilder.name("测试部署资源")
-                .addClasspathResource("pwd/allen/my-process.bpmn20.xml")
+                .addClasspathResource("bpmn/my-process.bpmn20.xml")
                 .addClasspathResource("second_approve.bpmn20.xml");
 
         //部署两个流程文件，生成的记录有：一个部署记录、两个流程定义记录、两个流程数据流记录、一个流程图记录（my-process没有位置信息，所以没有生成流程图记录）
@@ -40,7 +40,7 @@ public class RepositoryServiceTest {
 
         deploymentBuilder = repositoryService.createDeployment();
         deploymentBuilder.name("测试部署资源")
-                .addClasspathResource("pwd/allen/my-process.bpmn20.xml")
+                .addClasspathResource("bpmn/my-process.bpmn20.xml")
                 .addClasspathResource("second_approve.bpmn20.xml");
         deploymentBuilder.deploy();
 
@@ -66,7 +66,7 @@ public class RepositoryServiceTest {
      * 测试流程定义挂起，挂起后不能启动该流程
      */
     @Test
-    @org.activiti.engine.test.Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @org.activiti.engine.test.Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testSuspend() {
         RepositoryService repositoryService = activitiRule.getRepositoryService();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
@@ -96,7 +96,7 @@ public class RepositoryServiceTest {
      * 配置启动流程权限
      */
     @Test
-    @org.activiti.engine.test.Deployment(resources = "pwd/allen/my-process.bpmn20.xml")
+    @org.activiti.engine.test.Deployment(resources = "bpmn/my-process.bpmn20.xml")
     public void testCandidateStarter() {
         RepositoryService repositoryService = activitiRule.getRepositoryService();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();

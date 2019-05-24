@@ -14,7 +14,7 @@ public class MyUnitTest {
 	public ActivitiRule activitiRule = new ActivitiRule();
 
 	@Test
-	@Deployment(resources = {"pwd/allen/my-process.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
 	public void test() {
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 		assertNotNull(processInstance);
