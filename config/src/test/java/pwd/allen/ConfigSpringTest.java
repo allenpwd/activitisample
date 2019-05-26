@@ -44,6 +44,9 @@ public class ConfigSpringTest {
     public void test() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("my-process");
         Task task = taskService.createTaskQuery().singleResult();
+
+        //在调用complete方法时，会将完成的Task数据从任务表中删除，如果发现这个任务为流程中的最后一个任务，则会连同流程实例的数据一并删除
+        //并按照历史配置来记录流程的历史数据。
         taskService.complete(task.getId());
 
         helloBean.sayHello();

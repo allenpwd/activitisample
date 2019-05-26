@@ -44,7 +44,7 @@ public class UserTaskTest {
 		logger.info("find by group1 task={}", task);
 
 		//指定代理人 指定代理人之后候选人就失效了
-		//方式一 claim 推荐该方式 会校验是否已指定了代理人，是则抛错
+		//方式一 claim 推荐该方式 会校验是否已指定了代理人，如果是且指定的代理人与参数userId不同则抛错
 		taskService.claim(task.getId(), "user1");
 
 		//方式二 setAssignee 不推荐 直接设置，之前设置的会被覆盖

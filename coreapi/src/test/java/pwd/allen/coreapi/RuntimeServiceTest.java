@@ -88,7 +88,7 @@ public class RuntimeServiceTest {
         ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId(), variables);
         logger.info("processInstance {}", processInstance);
 
-        //增加、修改、删除流程实例变量
+        //增加、修改、删除流程实例全局变量
         runtimeService.setVariable(processInstance.getId(), "key3", "value3");
         runtimeService.setVariable(processInstance.getId(), "key2", "value2-1");
         runtimeService.removeVariable(processInstance.getId(), "key1");
