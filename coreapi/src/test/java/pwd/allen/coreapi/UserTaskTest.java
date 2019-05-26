@@ -78,6 +78,9 @@ public class UserTaskTest {
 		logger.info("find by group1 task={}", task);
 	}
 
+    /**
+     * 清空DATABASE
+     */
 	@Test
 	public void clearDB() {
 		activitiRule.getManagementService().executeCommand(new Command<Object>() {
