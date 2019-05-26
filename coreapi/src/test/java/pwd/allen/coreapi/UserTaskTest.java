@@ -1,6 +1,8 @@
 package pwd.allen.coreapi;
 
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -18,7 +20,7 @@ public class UserTaskTest {
 	private static final Logger logger = LoggerFactory.getLogger(UserTaskTest.class);
 
 	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule();
+	public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
 	/**
 	 * 测试流程配置文件方式指定任务的候选人或候选组，设置代理人
@@ -74,6 +76,17 @@ public class UserTaskTest {
 		task = activitiRule.getTaskService().createTaskQuery()
 				.taskCandidateGroup("group1").singleResult();
 		logger.info("find by group1 task={}", task);
+	}
+
+	@Test
+	public void clearDB() {
+		activitiRule.getManagementService().executeCommand(new Command<Object>() {
+			@Override
+			public Object execute(CommandContext commandContext) {
+				commandContext.getDbSqlSession().dbSchemaDrop();
+				return null;
+			}
+		});
 	}
 
 }
