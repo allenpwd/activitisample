@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+
+		<startEvent id="start" />
+		<inclusiveGateway id="myGatewayIdBegin" name="myGatewayNameBegin" />
+		<userTask id="userTask1" name="部门经理会签!" />
+		<userTask id="userTask2" name="主管会签!" />
+		<userTask id="userTask3" name="无效!" />
+		<parallelGateway id="myGatewayIdEnd" name="myGatewayNameEnd" />
+		<userTask id="userTask4" name="汇总!" />
+		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="myGatewayIdBegin" />
+		<sequenceFlow id="flow2" sourceRef="myGatewayIdBegin" targetRef="userTask1" >
+			<conditionExpression>
+				<![CDATA[${day < 5}]]>
+			</conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow id="flow3" sourceRef="myGatewayIdBegin" targetRef="userTask2" >
+			<conditionExpression>
+				<![CDATA[${day < 5}]]>
+			</conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow id="flow8" sourceRef="myGatewayIdBegin" targetRef="userTask3" >
+			<conditionExpression>
+				<![CDATA[${day >= 5}]]>
+			</conditionExpression>
+		</sequenceFlow>
+
+		<sequenceFlow id="flow5" sourceRef="userTask1" targetRef="myGatewayIdEnd" />
+		<sequenceFlow id="flow6" sourceRef="userTask2" targetRef="myGatewayIdEnd" />
+		<sequenceFlow id="flow4" sourceRef="myGatewayIdEnd" targetRef="userTask4" />
+		<sequenceFlow id="flow7" sourceRef="userTask3" targetRef="end" />
+		<sequenceFlow id="flow9" sourceRef="userTask4" targetRef="end" />
+	</process>
+
+</definitions>
