@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * @author pwd
- * 测试MDC日志打印，activiti_mdc.cfg.xml配置了MDCCommandInvoker拦截器做MDC启动和变量赋值
  * @create 2019-04-07 18:23
  **/
 public class ConfigEventLogTest {
@@ -25,7 +24,7 @@ public class ConfigEventLogTest {
     public ActivitiRule activitiRule = new ActivitiRule("activiti_eventlog.cfg.xml");
 
     @Test
-    @Deployment(resources = {"pwd/allen/my-process.bpmn20.xml"})
+    @Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
     public void test() {
 
         ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");

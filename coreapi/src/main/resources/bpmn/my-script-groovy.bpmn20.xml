@@ -9,17 +9,16 @@
 	<process id="my-process">
 
 		<startEvent id="start" />
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="myScriptTaskId" />
-		
 		<scriptTask id="myScriptTaskId" name="myScriptTaskName" scriptFormat="groovy">
 			<script>
 				def myValue = "testGroovy"
 				execution.setVariable("myKey", myValue)
 			</script>
 		</scriptTask>
-		<sequenceFlow id="flow2" sourceRef="myScriptTaskId" targetRef="end" />
-
 		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="myScriptTaskId" />
+		<sequenceFlow id="flow2" sourceRef="myScriptTaskId" targetRef="end" />
 
 	</process>
 

@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * none：不保存任何的历史数据，因此，在流程执行过程中，这是最高效的。
+ * activity：级别高于none，保存流程实例与流程行为，其他数据不保存。
+ * audit：除 activity级别会保存的数据外，还会保存全部的流程任务及其属性数据。 为默认值。
+ * full：保存历史数据的最高级别，除了会保存 audit级别的数据外，还会保存其他全部流程相关的细节数据，包括一些流程参数等。
  * @author pwd
  * @create 2019-04-07 18:23
  **/
@@ -32,7 +36,7 @@ public class ConfigHistoryLevelTest {
     public ActivitiRule activitiRule = new ActivitiRule("activiti_history.cfg.xml");
 
     @Test
-    @Deployment(resources = {"pwd/allen/my-process.bpmn20.xml"})
+    @Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
     public void test() {
 
         //启动流程

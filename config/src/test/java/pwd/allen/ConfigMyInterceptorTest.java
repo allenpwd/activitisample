@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author pwd
  * 测试自定义的命令拦截器
+ * @author pwd
  * @create 2019-04-07 18:23
  **/
 public class ConfigMyInterceptorTest {
@@ -27,7 +27,7 @@ public class ConfigMyInterceptorTest {
     public ActivitiRule activitiRule = new ActivitiRule("activiti_interceptor.cfg.xml");
 
     @Test
-    @Deployment(resources = {"pwd/allen/my-process.bpmn20.xml"})
+    @Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
     public void test() {
 
         Map<String, ProcessEngine> processEngines = ProcessEngines.getProcessEngines();

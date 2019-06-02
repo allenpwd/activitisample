@@ -9,16 +9,15 @@
 	<process id="my-process">
 
 		<startEvent id="start" />
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="myScriptTaskId" />
-		
 		<scriptTask id="myScriptTaskId" name="myScriptTaskName" scriptFormat="juel" activiti:resultVariable="myResult">
 			<script>
 				#{key1+key2}
 			</script>
 		</scriptTask>
-		<sequenceFlow id="flow2" sourceRef="myScriptTaskId" targetRef="end" />
-
 		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="myScriptTaskId" />
+		<sequenceFlow id="flow2" sourceRef="myScriptTaskId" targetRef="end" />
 
 	</process>
 

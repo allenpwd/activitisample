@@ -36,6 +36,8 @@ public class ScriptTaskTest {
 	public void test() {
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 
+		//启动流程后执行scriptTask 设置流程变量myKey="testGroovy"
+
 		HistoryService historyService = activitiRule.getHistoryService();
 
 		List<HistoricVariableInstance> historicVariableInstances = historyService.createHistoricVariableInstanceQuery().processInstanceId(processInstance.getId())
@@ -58,6 +60,8 @@ public class ScriptTaskTest {
 		vars.put("key2", 5);
 		ProcessInstance processInstance = activitiRule.getRuntimeService()
 				.startProcessInstanceByKey("my-process", vars);
+
+		//接下来执行scriptTask 设置流程变量 myResult=#{key1+key2}
 
 		HistoryService historyService = activitiRule.getHistoryService();
 

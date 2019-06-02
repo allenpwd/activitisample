@@ -27,7 +27,7 @@ public class RuntimeServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(RuntimeServiceTest.class);
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule();
+    public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
     /**
      * 启动流程

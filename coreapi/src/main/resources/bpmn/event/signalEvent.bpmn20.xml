@@ -6,17 +6,21 @@
 	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
 	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
 
+	<signal id="mySignal" name="mySignalName" />
+
 	<process id="my-process">
+
 		<startEvent id="start" />
-		<userTask id="someTask" name="User Task!" >
-			<extensionElements>
-				<activiti:taskListener event="create" class="pwd.allen.listener.MyTaskListener"/>
-			</extensionElements>
-		</userTask>
+		<receiveTask id="receiveTask1" name="receiveTask1--" />
+		<intermediateCatchEvent id="catchEvent" name="catchEvent--">
+			<signalEventDefinition signalRef="mySignal"/>
+		</intermediateCatchEvent>
 		<endEvent id="end" />
 
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="receiveTask1" />
+		<sequenceFlow id="flow2" sourceRef="receiveTask1" targetRef="catchEvent" />
+		<sequenceFlow id="flow3" sourceRef="catchEvent" targetRef="end" />
+
 
 	</process>
 

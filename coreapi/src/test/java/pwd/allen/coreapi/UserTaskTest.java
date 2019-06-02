@@ -30,6 +30,7 @@ public class UserTaskTest {
 	public void test() {
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 
+		//候选人
 		TaskService taskService = activitiRule.getTaskService();
 		Task task = taskService.createTaskQuery()
 				.taskCandidateUser("user1").singleResult();
@@ -39,6 +40,7 @@ public class UserTaskTest {
 				.taskCandidateUser("user2").singleResult();
 		logger.info("find by user2 task={}", task);
 
+		//候选组
 		task = activitiRule.getTaskService().createTaskQuery()
 				.taskCandidateGroup("group1").singleResult();
 		logger.info("find by group1 task={}", task);

@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pwd.allen.delegate.HelloBean;
 
 /**
+ * spring整合 activiti
  * @author pwd
  * @create 2019-04-07 18:23
  **/
@@ -40,7 +41,7 @@ public class ConfigSpringTest {
     private HelloBean helloBean;
 
     @Test
-    @Deployment(resources = {"pwd/allen/my-process-spring.bpmn20.xml"})
+    @Deployment(resources = {"bpmn/my-process-spring.bpmn20.xml"})
     public void test() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("my-process");
         Task task = taskService.createTaskQuery().singleResult();

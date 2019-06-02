@@ -22,7 +22,7 @@ public class RepositoryServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(RepositoryServiceTest.class);
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule();
+    public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
     @Test
     public void testRepository() {
@@ -96,7 +96,7 @@ public class RepositoryServiceTest {
      * 配置启动流程权限
      */
     @Test
-    @org.activiti.engine.test.Deployment(resources = "bpmn/my-process.bpmn20.xml")
+    @org.activiti.engine.test.Deployment(resources = "bpmn/second_approve.bpmn20.xml")
     public void testCandidateStarter() {
         RepositoryService repositoryService = activitiRule.getRepositoryService();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
