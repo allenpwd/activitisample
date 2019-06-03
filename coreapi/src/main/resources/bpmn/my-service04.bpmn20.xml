@@ -9,12 +9,15 @@
 	<process id="my-process">
 
 		<startEvent id="start" />
-		<!--<userTask id="someTask" name="Activiti is awesome!" />-->
-		<receiveTask id="someTask"/>
+		<serviceTask id="serviceOne" name="serviceOne"
+					 activiti:expression="${myJavaDelegate.value}"/>
+		<serviceTask id="serviceTwo" name="serviceTow"
+			activiti:expression="${myJavaDelegate.doSomething()}"/>
 		<endEvent id="end" />
 
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="serviceOne" />
+		<sequenceFlow id="flow2" sourceRef="serviceOne" targetRef="serviceTwo" />
+		<sequenceFlow id="flow3" sourceRef="serviceTwo" targetRef="end" />
 
 	</process>
 

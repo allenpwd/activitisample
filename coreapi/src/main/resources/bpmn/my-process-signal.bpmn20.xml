@@ -10,15 +10,14 @@
 	<process id="my-process">
 
 		<startEvent id="start" />
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="signalTask" />
-		
 		<!--<userTask id="someTask" name="Activiti is awesome!" />-->
 		<intermediateCatchEvent id="signalTask">
 			<signalEventDefinition signalRef="my-signal"></signalEventDefinition>
 		</intermediateCatchEvent>
-		<sequenceFlow id="flow2" sourceRef="signalTask" targetRef="end" />
-
 		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="signalTask" />
+		<sequenceFlow id="flow2" sourceRef="signalTask" targetRef="end" />
 
 	</process>
 

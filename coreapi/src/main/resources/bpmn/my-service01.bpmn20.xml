@@ -6,15 +6,22 @@
 	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
 	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
 
-	<process id="my-process">
+	<process id="my-process" name="my-process-name">
 
 		<startEvent id="start" />
-		<!--<userTask id="someTask" name="Activiti is awesome!" />-->
-		<receiveTask id="someTask"/>
+		<serviceTask id="serviceOne" name="serviceOne"
+			activiti:class="pwd.allen.bean.MyJavaDelegate">
+			<extensionElements>
+				<activiti:field name="name" stringValue="set field of bean"/>
+				<activiti:field name="desc">
+					<activiti:expression>get var from instance:${desc}</activiti:expression>
+				</activiti:field>
+			</extensionElements>
+		</serviceTask>
 		<endEvent id="end" />
 
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="serviceOne" />
+		<sequenceFlow id="flow2" sourceRef="serviceOne" targetRef="end" />
 
 	</process>
 
