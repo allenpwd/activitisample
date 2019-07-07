@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * history属性有以下取值
  * none：不保存任何的历史数据，因此，在流程执行过程中，这是最高效的。
  * activity：级别高于none，保存流程实例与流程行为，其他数据不保存。
  * audit：除 activity级别会保存的数据外，还会保存全部的流程任务及其属性数据。 为默认值。

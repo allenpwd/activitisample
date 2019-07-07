@@ -7,11 +7,14 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,8 @@ public class UserGatewayTest {
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
 	/**
-	 * 测试排他网关
+	 * 测试排他网关 只会走一条线，如果多个条件满足则按顺序走最先满足的，
+	 * 如果没一个满足会抛异常（org.activiti.engine.ActivitiException: No outgoing sequence flow of the exclusive gateway 'myGatewayId' could be selected for continuing the process）
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/gateway/my-process-Exclusive.bpmn20.xml"})

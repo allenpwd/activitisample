@@ -24,6 +24,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pwd.allen.bean.MyJavaDelegate;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class ServiceTaskTest2 {
 
 		//启动后会走到serviceTask activiti:delegateExpression="${myJavaDelegate}"
 		//会先从流程变量中找，没有则会使用spring容器中id为myJavaDelegate的bean
-		//如果还找到会报错：Unknown property used in expression: ${myJavaDelegate}
+		//如果还没找到会报错：Unknown property used in expression: ${myJavaDelegate}
 
 	}
 
@@ -94,8 +96,6 @@ public class ServiceTaskTest2 {
 		variables.put("myJavaDelegate", myJavaDelegate);
 		ProcessInstance processInstance = activitiRule.getRuntimeService()
 				.startProcessInstanceByKey("my-process", variables);
-
-		//启动后会走到serviceTask activiti:delegateExpression="${myJavaDelegate}"
-		//会使用spring容器中id为myJavaDelegate的bean
 	}
+
 }

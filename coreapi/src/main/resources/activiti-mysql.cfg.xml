@@ -8,7 +8,7 @@
     <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver" />
     <property name="jdbcUsername" value="root" />
     <property name="jdbcPassword" value="123456" />
-      <property name="databaseSchemaUpdate" value="true" />
+    <property name="databaseSchemaUpdate" value="true" />
   </bean>
 
 </beans>

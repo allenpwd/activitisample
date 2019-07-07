@@ -23,7 +23,7 @@
 		</sequenceFlow>
 		<sequenceFlow id="flow3" sourceRef="myGatewayId" targetRef="userTask2" >
 			<conditionExpression>
-				<![CDATA[${score < 90 && score >= 60 }]]>
+				<![CDATA[${score <= 90 && score >= 60 }]]>
 			</conditionExpression>
 		</sequenceFlow>
 		<sequenceFlow id="flow4" sourceRef="myGatewayId" targetRef="userTask3" />

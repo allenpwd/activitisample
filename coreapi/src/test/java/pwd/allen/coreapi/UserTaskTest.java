@@ -23,7 +23,7 @@ public class UserTaskTest {
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
 	/**
-	 * 测试流程配置文件方式指定任务的候选人或候选组，设置代理人
+	 * 以流程配置文件方式指定任务的候选人或候选组，设置代理人
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/my-userTask.bpmn20.xml"})

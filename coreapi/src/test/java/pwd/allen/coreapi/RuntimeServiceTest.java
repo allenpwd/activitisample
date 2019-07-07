@@ -88,7 +88,7 @@ public class RuntimeServiceTest {
         ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId(), variables);
         logger.info("processInstance {}", processInstance);
 
-        //增加、修改、删除流程实例全局变量
+        //增加（之前不存在）、修改（之前已存在）、删除流程实例全局变量
         runtimeService.setVariable(processInstance.getId(), "key3", "value3");
         runtimeService.setVariable(processInstance.getId(), "key2", "value2-1");
         runtimeService.removeVariable(processInstance.getId(), "key1");
@@ -128,7 +128,7 @@ public class RuntimeServiceTest {
 
         ProcessDefinition processDefinition = activitiRule.getRepositoryService().createProcessDefinitionQuery().singleResult();
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId());
+        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId(), "myBusinessKey");
         logger.info("processInstance {}", processInstance);
 
         //流程启动后因为有个userTask，所以流程会存在着等待执行
