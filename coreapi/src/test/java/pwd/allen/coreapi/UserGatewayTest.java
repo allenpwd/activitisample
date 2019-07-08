@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 网关
+ * 如果没一个满足会抛异常（org.activiti.engine.ActivitiException: No outgoing sequence flow of the exclusive gateway 'gatewayName' could be selected for continuing the process）
+ */
 public class UserGatewayTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserGatewayTest.class);
@@ -28,7 +32,6 @@ public class UserGatewayTest {
 
 	/**
 	 * 测试排他网关 只会走一条线，如果多个条件满足则按顺序走最先满足的，
-	 * 如果没一个满足会抛异常（org.activiti.engine.ActivitiException: No outgoing sequence flow of the exclusive gateway 'myGatewayId' could be selected for continuing the process）
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/gateway/my-process-Exclusive.bpmn20.xml"})
@@ -82,7 +85,7 @@ public class UserGatewayTest {
 	public void testInclusive() {
 		Map<String, Object> vars = new HashMap<String, Object>();
 		//day为请假天数，小于5天才走部门经理和主管会签，否则直接结束
-		vars.put("day", 5);
+		vars.put("day", 10);
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", vars);
 
 		TaskService taskService = activitiRule.getTaskService();

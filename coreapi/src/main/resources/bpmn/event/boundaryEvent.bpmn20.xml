@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+
+		<!--
+		演示边界事件
+		功能描述：commonTask5秒内没执行完则结束commonTask并执行timeroutTask
+		 -->
+		<startEvent id="start" name="startEvent name" />
+		<userTask id="commonTask" name="普通任务" />
+		<boundaryEvent attachedToRef="commonTask" id="boundaryTime"
+					   name="boundaryTime name" cancelActivity="true">
+			<timerEventDefinition>
+				<timeDuration>PT5S</timeDuration>
+			</timerEventDefinition>
+		</boundaryEvent>
+		<userTask id="timeoutTask" name="普通任务5秒内没执行完则触发"></userTask>
+		<endEvent id="end1" />
+		<endEvent id="end2" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="commonTask" />
+		<sequenceFlow id="flow2" sourceRef="boundaryTime" targetRef="timeoutTask" />
+		<sequenceFlow id="flow3" sourceRef="commonTask" targetRef="end1" />
+		<sequenceFlow id="flow4" sourceRef="timeoutTask" targetRef="end2" />
+
+
+	</process>
+
+</definitions>
