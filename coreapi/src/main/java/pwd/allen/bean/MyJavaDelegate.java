@@ -24,15 +24,16 @@ public class MyJavaDelegate implements JavaDelegate, Serializable {
     @Override
     public void execute(DelegateExecution execution) {
         if (name != null) {
-            Object value = name.getValue(execution);
-            logger.info("name = {}", value);
+            //Expression的getValue方法传入执行对象作为参数的目的是注入的如果是UEL表达式需要操作到流程的参数，如果只是注入字符串则传入null即可。
+            Object value = name.getValue(null);
+            logger.info("【MyJavaDelegate】name = {}", value);
         }
         if (desc != null) {
+            //这里不传execution的话会报NullPointException
             Object value = desc.getValue(execution);
-            logger.info("desc = {}", value);
+            logger.info("【MyJavaDelegate】desc = {}", value);
         }
-        logger.info("run my java delegate {}", this);
-
+        logger.info("【MyJavaDelegate】run my java delegate {}", this);
     }
 
     public String getValue() {

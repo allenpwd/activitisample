@@ -11,7 +11,7 @@
     <property name="databaseSchemaUpdate" value="true" />
     <!-- 如果有定时事件，需要打开异步执行器 -->
     <property name="asyncExecutorActivate" value="true" />
-    <property name="enableVerboseExecutionTreeLogging" value="true" />
+    <!--<property name="enableVerboseExecutionTreeLogging" value="true" />-->
   </bean>
 
 </beans>

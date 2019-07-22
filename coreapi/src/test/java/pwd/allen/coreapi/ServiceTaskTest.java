@@ -33,7 +33,9 @@ public class ServiceTaskTest {
 
 
 	/**
-	 * 执行实现JavaDelegate的类，当流程到达该节点会执行（可以用activiti:field为对象赋值），然后继续下一步流程
+	 * 执行实现JavaDelegate的类，当流程到达该节点会使用反射将缓存的配置初始化（故需要提供无参构造器）并执行，然后继续下一步流程
+	 * 可以用activiti:field为对象赋值，要求JavaDelegate类中有对应字段且类型为Expression
+	 *		Expression有两个实现类：JuelExpression（处理表达式类型的属性）和FixedValue（处理字符串类型的属性）
 	 * 每次执行该节点都会重新创建一个JavaDelegate类
 	 */
 	@Test
@@ -41,7 +43,11 @@ public class ServiceTaskTest {
 	public void test() {
 		HashMap<String, Object> variables = Maps.newHashMap();
 		variables.put("desc", "test java delegate");
-		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", variables);
+		try {
+			ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", variables);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		List<HistoricActivityInstance> activityInstances = activitiRule.getHistoryService().createHistoricActivityInstanceQuery()
 				.orderByHistoricActivityInstanceEndTime().asc()

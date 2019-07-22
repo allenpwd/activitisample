@@ -12,9 +12,14 @@
 		<serviceTask id="serviceOne" name="serviceOne"
 			activiti:class="pwd.allen.bean.MyJavaDelegate">
 			<extensionElements>
+				<!--字符串类型-->
 				<activiti:field name="name" stringValue="set field of bean"/>
-				<activiti:field name="desc">
-					<activiti:expression>get var from instance:${desc}</activiti:expression>
+				<!--juel表达式类型
+					要求流程参数有desc，否则会报
+					org.activiti.engine.ActivitiException: Unknown property used in expression: get var from instance:${desc}
+				-->
+				<activiti:field name="desc" expression="get var from instance:${desc}">
+					<!--<activiti:expression>get var from instance:${desc}</activiti:expression>-->
 				</activiti:field>
 			</extensionElements>
 		</serviceTask>

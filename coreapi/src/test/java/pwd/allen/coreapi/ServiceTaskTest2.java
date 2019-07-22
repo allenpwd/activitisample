@@ -47,12 +47,15 @@ public class ServiceTaskTest2 {
 
 
 	/**
-	 * 执行一个JavaDelegate对象表达式，表达式为spring容器中注册的beanId
-	 * 这样有个好处就是如果bean是单例就不会每次到达该节点都去创建一个实例
+	 * 执行一个JavaDelegate对象表达式（activiti:delegateExpression）
+	 * 会先从流程变量中找
+	 * 没有则会使用spring容器中id为myJavaDelegate的bean（如果bean是单例就不会每次到达该节点都去创建一个实例）
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/my-service03.bpmn20.xml"})
 	public void testJavaDelegateExpression() {
+
+
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 
 		//启动后会走到serviceTask activiti:delegateExpression="${myJavaDelegate}"
