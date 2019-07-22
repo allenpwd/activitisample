@@ -1,12 +1,8 @@
 package pwd.allen.coreapi;
 
-import com.google.common.collect.Maps;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.runtime.ProcessInstanceBuilder;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
@@ -16,18 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * 定时事件
- * 1. 指定时间（timeDate）
- * 2. 指定持续时间（timeDuration）
- * 3. 周期执行（timeCycle）
- * 定义方式
- * <timerEventDefinition>
- *     <timeDate>2018-01-01T10:10:00</timeDate>
- * </timerEventDefinition>
- * 要把异步执行器打开：
  * @author 门那粒沙
  * @create 2019-04-21 16:37
  **/
@@ -39,8 +25,20 @@ public class EventTest {
     public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
 
     /**
+     *  * 定时事件
+     *  以下三个子元素用来定义时间，需要遵守ISO 8601轨迹标准。
+     *  * 1. 指定时间（timeDate）
+     *      例子：2019-07-20T10:00:00
+     *  * 2. 指定定时器激活后多久的时间内会被运行（timeDuration）
+     *      例子：PT5M(5分钟后)
+     *  * 3. 周期执行（timeCycle）：支持cron表达式
+     *  * 定义方式
+     *  * <timerEventDefinition>
+     *  *     <timeDate>2018-01-01T10:10:00</timeDate>
+     *  * </timerEventDefinition>
+     * 有定时事件，需要打开异步执行器<property name="asyncExecutorActivate" value="true" />
      * 测试定时边界事件
-     *
+     * 功能描述：5秒之内commonTask没有执行完就会执行timeoutTask
      */
     @Test
     @Deployment(resources = "bpmn/event/boundaryEvent.bpmn20.xml")
@@ -65,6 +63,33 @@ public class EventTest {
         for (Task task : tasks) {
             logger.info("task={}", task);
         }
+        logger.info("tasks.size={}", tasks.size());
+    }
+
+    /**
+     * 定时开始事件
+     * 开始事件如果没有指定任何触发条件，就需要使用RuntimeService的startProcessByXXX方法去启动流程。
+     * （子流程的开始事件指定的触发条件是无效的，因为流程到达子流程时就意味着子流程需要启动，并不需要其他的启动条件）
+     * 示例功能描述：每隔5秒启动一次流程
+     */
+    @Test
+    @Deployment(resources = "bpmn/event/startEvent.bpmn20.xml")
+    public void testErrorEvent() throws InterruptedException {
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+
+        List<Task> tasks = activitiRule.getTaskService().createTaskQuery().listPage(0, 100);
+        logger.info("tasks.size={}", tasks.size());
+
+        Thread.sleep(1000 * 10);
+        tasks = activitiRule.getTaskService().createTaskQuery().listPage(0, 100);
+        logger.info("tasks.size={}", tasks.size());
+
+        Thread.sleep(1000 * 10);
+        tasks = activitiRule.getTaskService().createTaskQuery().listPage(0, 100);
+        logger.info("tasks.size={}", tasks.size());
+
+        Thread.sleep(1000 * 10);
+        tasks = activitiRule.getTaskService().createTaskQuery().listPage(0, 100);
         logger.info("tasks.size={}", tasks.size());
     }
 

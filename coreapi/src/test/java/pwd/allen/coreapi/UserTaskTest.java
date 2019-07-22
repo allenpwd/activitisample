@@ -59,7 +59,7 @@ public class UserTaskTest {
 	}
 
 	/**
-	 * 测试TaskListener方式设置候选人或候选组
+	 * 测试任务监听器TaskListener方式设置候选人或候选组
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/my-userTask2.bpmn20.xml"})

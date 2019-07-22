@@ -12,6 +12,7 @@
         <module>config</module>
         <module>config</module>
         <module>coreapi</module>
+        <module>springboot</module>
     </modules>
 
     <parent>

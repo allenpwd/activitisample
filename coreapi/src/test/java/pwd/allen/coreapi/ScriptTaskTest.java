@@ -21,6 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 脚本里可以使用execution变量，例如execution.setVariable方法设置流程变量
+ * 直接在脚本中定义的变量，也会被设置为流程参数
+ */
 public class ScriptTaskTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScriptTaskTest.class);
@@ -30,6 +34,8 @@ public class ScriptTaskTest {
 
 	/**
 	 * 测试groovy脚本任务
+	 * 需引入groovy依赖包
+	 * groovy基于JVM，故可以轻松使用java类
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/my-script-groovy.bpmn20.xml"})
