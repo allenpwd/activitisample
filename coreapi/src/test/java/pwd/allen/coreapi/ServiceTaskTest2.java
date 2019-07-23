@@ -52,7 +52,7 @@ public class ServiceTaskTest2 {
 	 * 没有则会使用spring容器中id为myJavaDelegate的bean（如果bean是单例就不会每次到达该节点都去创建一个实例）
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-service03.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/service/my-service03.bpmn20.xml"})
 	public void testJavaDelegateExpression() {
 
 
@@ -68,7 +68,7 @@ public class ServiceTaskTest2 {
 	 * 执行一个JavaDelegate对象表达式，会优先从流程变量中找
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-service03.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/service/my-service03.bpmn20.xml"})
 	public void testJavaDelegateExpression2() {
 		MyJavaDelegate myJavaDelegate = new MyJavaDelegate();
 		logger.info("JavaDelegate = {}", myJavaDelegate);
@@ -89,7 +89,7 @@ public class ServiceTaskTest2 {
 	 * //执行调用方法表达式和值表达式
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-service04.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/service/my-service04.bpmn20.xml"})
 	public void testJavaDelegateExpression3() {
 		MyJavaDelegate myJavaDelegate = new MyJavaDelegate();
 		myJavaDelegate.setValue("pwd");

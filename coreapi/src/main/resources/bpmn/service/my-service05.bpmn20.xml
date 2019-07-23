@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+
+		<startEvent id="start" />
+		<serviceTask id="serviceOne" name="serviceOne"
+					 activiti:type="shell">
+			<extensionElements>
+				<activiti:field name="command" stringValue="cmd"/>
+				<!--执行完成后关闭窗口-->
+				<activiti:field name="arg1" stringValue="/c"/>
+				<activiti:field name="arg2" stringValue="echo"/>
+				<activiti:field name="arg3" stringValue="%JAVA_HOME%"/>
+				<!-- 将执行流的输出作为流程参数存到流程中 -->
+				<activiti:field name="outputVariable" stringValue="javaHome"/>
+				<!--设置此命令的工作目录，默认当前目录-->
+				<activiti:field name="directory" stringValue="D:/code"/>
+			</extensionElements>
+		</serviceTask>
+		<userTask id="userTask" name="useTask"/>
+		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="serviceOne" />
+		<sequenceFlow id="flow2" sourceRef="serviceOne" targetRef="userTask" />
+		<sequenceFlow id="flow3" sourceRef="userTask" targetRef="end" />
+
+	</process>
+
+</definitions>

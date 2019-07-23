@@ -3,6 +3,7 @@ package pwd.allen.coreapi;
 import com.google.common.collect.Maps;
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.ManagementService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.impl.interceptor.Command;
@@ -39,7 +40,7 @@ public class ServiceTaskTest {
 	 * 每次执行该节点都会重新创建一个JavaDelegate类
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-service01.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/service/my-service01.bpmn20.xml"})
 	public void test() {
 		HashMap<String, Object> variables = Maps.newHashMap();
 		variables.put("desc", "test java delegate");
@@ -63,7 +64,7 @@ public class ServiceTaskTest {
 	 * 每次执行该节点都会重新创建一个ActivityBehavior类
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-service02.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/service/my-service02.bpmn20.xml"})
 	public void test02() {
 
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
@@ -100,4 +101,14 @@ public class ServiceTaskTest {
 		}
 	}
 
+	/**
+	 * Shell任务
+	 */
+	@Test
+	@Deployment(resources = {"bpmn/service/my-service05.bpmn20.xml"})
+	public void testShell() {
+		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
+
+		logger.info("运行shell 得到JAVA_HOME的环境变量值为：{}", activitiRule.getRuntimeService().getVariable(processInstance.getId(), "javaHome"));
+	}
 }
