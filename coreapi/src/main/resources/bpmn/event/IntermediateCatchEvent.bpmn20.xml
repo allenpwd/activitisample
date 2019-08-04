@@ -13,18 +13,23 @@
 	<process id="my-process">
 
 		<startEvent id="start" name="startEvent name" ></startEvent>
+
 		<intermediateCatchEvent id="signal">
 			<signalEventDefinition signalRef="mySignal"/>
 		</intermediateCatchEvent>
+
 		<intermediateCatchEvent id="message">
 			<messageEventDefinition messageRef="myMessage"/>
 		</intermediateCatchEvent>
+
 		<intermediateCatchEvent id="timer">
 			<timerEventDefinition>
 				<timeDate>PT10S</timeDate>
 			</timerEventDefinition>
 		</intermediateCatchEvent>
+
 		<userTask id="commonTask" name="普通任务" />
+
 		<endEvent id="end1" />
 
 		<sequenceFlow id="flow1" sourceRef="start" targetRef="signal" />
@@ -32,7 +37,6 @@
 		<sequenceFlow id="flow1-2" sourceRef="message" targetRef="timer" />
 		<sequenceFlow id="flow2" sourceRef="timer" targetRef="commonTask" />
 		<sequenceFlow id="flow3" sourceRef="commonTask" targetRef="end1" />
-
 
 	</process>
 
