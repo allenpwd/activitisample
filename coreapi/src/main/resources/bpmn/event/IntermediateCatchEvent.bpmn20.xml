@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<signal id="mySignal" name="mySignalName" />
+
+	<message id="myMessage" name="myMessageName" />
+
+	<process id="my-process">
+
+		<startEvent id="start" name="startEvent name" ></startEvent>
+		<intermediateCatchEvent id="signal">
+			<signalEventDefinition signalRef="mySignal"/>
+		</intermediateCatchEvent>
+		<intermediateCatchEvent id="message">
+			<messageEventDefinition messageRef="myMessage"/>
+		</intermediateCatchEvent>
+		<intermediateCatchEvent id="timer">
+			<timerEventDefinition>
+				<timeDate>PT10S</timeDate>
+			</timerEventDefinition>
+		</intermediateCatchEvent>
+		<userTask id="commonTask" name="普通任务" />
+		<endEvent id="end1" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="signal" />
+		<sequenceFlow id="flow1-1" sourceRef="signal" targetRef="message" />
+		<sequenceFlow id="flow1-2" sourceRef="message" targetRef="timer" />
+		<sequenceFlow id="flow2" sourceRef="timer" targetRef="commonTask" />
+		<sequenceFlow id="flow3" sourceRef="commonTask" targetRef="end1" />
+
+
+	</process>
+
+</definitions>

@@ -2,6 +2,7 @@ package pwd.allen.coreapi;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.runtime.Job;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -94,36 +95,62 @@ public class EventTest {
     }
 
     /**
-     * 触发信号事件
+     * 各种中间捕获时间
      */
     @Test
-    @Deployment(resources = "bpmn/event/signalEvent.bpmn20.xml")
-    public void testSignalEvent() {
+    @Deployment(resources = "bpmn/event/IntermediateCatchEvent.bpmn20.xml")
+    public void testIntermediateCatchEvent() throws InterruptedException {
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
         //根据流程定义key启动流程，默认使用最新版本，常用
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("my-process");
 
-        //获取receiveTask1执行节点
-        Execution execution = runtimeService.createExecutionQuery().activityId("receiveTask1").singleResult();
-        logger.info("当前执行节点为 {}", execution);
 
-        //触发 receiveTask
-        runtimeService.trigger(execution.getId());
-
-        //触发之后流程到了catchEvent，会在事件表(ACT_RU_EVENT_SUBSCR)中产生事件描述数据，EVENT_TYPE_字段值为signal
-
+        /** signalCatchEvent begin **/
+        //流程到了信号捕获事件，会在事件表(ACT_RU_EVENT_SUBSCR)中产生事件描述数据，EVENT_TYPE_字段值为signal
         //获取catchEvent执行节点
-        execution = runtimeService.createExecutionQuery().activityId("catchEvent").singleResult();
+        Execution execution = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().singleResult();
         logger.info("当前执行节点为 {}", execution);
 
-        //发送信号给事件，结束节点
+        //发送信号给事件，结束节点，结束后事件订阅表（ACT_RU_EVENT_SUBSCR）中相关数据会删除
         //这里传的参数是signalName，即signal标签的name属性，传错的话不会触发
         runtimeService.signalEventReceived("mySignalName");
+        /** signalCatchEvent end **/
 
-        List<Execution> list = runtimeService.createExecutionQuery()
-                .processInstanceId(processInstance.getId()).list();
-        logger.info("触发 catching 事件后，执行流数量：{}", list.size());
+        /** messageCatchEvent begin **/
+        //流程到了信息捕获事件，会在事件表(ACT_RU_EVENT_SUBSCR)中产生事件描述数据，EVENT_TYPE_字段值为message
+        //获取catchEvent执行节点
+        execution = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().singleResult();
+        logger.info("当前执行节点为 {}", execution);
+
+        //发送信息给执行节点，结束节点，结束后事件订阅表（ACT_RU_EVENT_SUBSCR）中相关数据会删除
+        //这里传的参数是messageName，即message标签的name属性（在整个流程引擎里唯一，否则会部署失败），传错的话不会触发；和signal不同的是message针对某个执行节点的
+        runtimeService.messageEventReceived("myMessageName", execution.getId());
+        /** messageCatchEvent end **/
+
+
+        /** timerCatchEvent begin **/
+        //流程到了定时捕获事件，10s后结束节点，会在定时任务表（ACT_RU_TIMER_JOB）中产生数据，HANDLER_TYPE_=trigger_timer
+        //获取catchEvent执行节点
+        execution = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().singleResult();
+        logger.info("当前执行节点为 {}", execution);
+
+        //获取定时任务
+        Job job = activitiRule.getManagementService().createTimerJobQuery().processInstanceId(processInstance.getId()).executionId(execution.getId()).singleResult();
+
+        //如果删除了定时任务 流程仍然卡在中间事件
+//        activitiRule.getManagementService().deleteTimerJob(job.getId());
+
+        //如果流程被中断，则任务会被放到act_ru_suspended_job表，恢复任务则任务也会恢复；如果任务执行出错次数达到重试次数则会被放到act_ru_deadletter_job表
+//        runtimeService.suspendProcessInstanceById(processInstance.getId());
+
+        //等10秒让任务执行
+        Thread.sleep(10000);
+        /** timerCatchEvent end **/
+
+        //流程到了commonTask
+        List<Execution> list = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).list();
+        logger.info("执行流数量：{}", list.size());
     }
 
 }
