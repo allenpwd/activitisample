@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="sample-diagram" name="" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema">
+
+  <process id="Process_1" isClosed="false" processType="None">
+
+    <startEvent id="StartEvent_1"/>
+    <sequenceFlow id="SequenceFlow_0an5z6s" sourceRef="StartEvent_1" targetRef="Task_0rx0dkh"/>
+    <serviceTask activiti:exclusive="true" id="Task_0rx0dkh" name="工商银行扣款" activiti:expression="${myJavaDelegate.print('工商银行扣款')}"/>
+    <sequenceFlow id="SequenceFlow_130d1g0" sourceRef="Task_0rx0dkh" targetRef="Task_13ch4e2"/>
+    <serviceTask activiti:exclusive="true" id="Task_13ch4e2" name="农业银行加款" activiti:expression="${myJavaDelegate.print('农业银行加款')}"/>
+    <sequenceFlow id="SequenceFlow_0la7xhp" sourceRef="Task_13ch4e2" targetRef="IntermediateThrowEvent_07i57vp"/>
+    <intermediateThrowEvent id="IntermediateThrowEvent_07i57vp">
+      <!--  waitForCompletion属性决定抛出的事件是否等待补偿完成
+       如果在中间补偿事件的定义中设置activityRef属性属性，则补偿的触发就会有针对性，该补偿只针对指定的已经完成的流程活动，
+       如果不指定该属性，那么补偿将会产生广播的效果，即会触发全部的(符合条件的)补偿事件
+       -->
+      <compensateEventDefinition id="IntermediateThrowEvent_07i57vp_ED_1" waitForCompletion="true" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_0z2dzmc" sourceRef="IntermediateThrowEvent_07i57vp" targetRef="EndEvent_0s0twfi"/>
+    <endEvent id="EndEvent_0s0twfi"/>
+
+    <boundaryEvent attachedToRef="Task_0rx0dkh" cancelActivity="true" id="BoundaryEvent_0vvy7r4">
+      <compensateEventDefinition id="BoundaryEvent_0vvy7r4_ED_1" waitForCompletion="true"/>
+    </boundaryEvent>
+    <serviceTask activiti:exclusive="true" id="Task_1ccwoaz" name="工商银行补偿" activiti:expression="${myJavaDelegate.print('工商银行补偿')}" isForCompensation="true"/>
+
+    <boundaryEvent attachedToRef="Task_13ch4e2" cancelActivity="true" id="BoundaryEvent_11dln2v">
+      <compensateEventDefinition id="BoundaryEvent_11dln2v_ED_1" waitForCompletion="true"/>
+    </boundaryEvent>
+    <serviceTask activiti:exclusive="true" id="Task_0nyfle9" name="农业银行补偿" activiti:expression="${myJavaDelegate.print('农业银行补偿')}" isForCompensation="true"/>
+    
+    <association associationDirection="One" id="_2" sourceRef="BoundaryEvent_0vvy7r4" targetRef="Task_1ccwoaz"/>
+    <association associationDirection="One" id="_3" sourceRef="BoundaryEvent_11dln2v" targetRef="Task_0nyfle9"/>
+
+  </process>
+
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="Process_1">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="Shape-StartEvent_1">
+        <dc:Bounds height="32.0" width="32.0" x="229.0" y="270.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_0s0twfi" id="Shape-EndEvent_0s0twfi">
+        <dc:Bounds height="32.0" width="32.0" x="701.0" y="270.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_13ch4e2" id="Shape-Task_13ch4e2">
+        <dc:Bounds height="80.0" width="100.0" x="465.0" y="248.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="IntermediateThrowEvent_07i57vp" id="Shape-IntermediateThrowEvent_07i57vp">
+        <dc:Bounds height="32.0" width="32.0" x="615.0" y="270.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_1ccwoaz" id="Shape-Task_1ccwoaz">
+        <dc:Bounds height="80.0" width="100.0" x="315.0" y="408.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_0nyfle9" id="Shape-Task_0nyfle9">
+        <dc:Bounds height="80.0" width="100.0" x="466.0" y="408.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_0rx0dkh" id="Shape-Task_0rx0dkh">
+        <dc:Bounds height="80.0" width="100.0" x="315.0" y="248.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BoundaryEvent_11dln2v" id="Shape-BoundaryEvent_11dln2v">
+        <dc:Bounds height="32.0" width="32.0" x="498.0" y="310.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="33.0" y="62.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BoundaryEvent_0vvy7r4" id="Shape-BoundaryEvent_0vvy7r4">
+        <dc:Bounds height="32.0" width="32.0" x="348.0" y="310.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="33.0" y="62.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_130d1g0" id="BPMNEdge_SequenceFlow_130d1g0" sourceElement="Task_0rx0dkh" targetElement="Task_13ch4e2">
+        <di:waypoint x="415.0" y="288.0"/>
+        <di:waypoint x="465.0" y="288.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0an5z6s" id="BPMNEdge_SequenceFlow_0an5z6s" sourceElement="StartEvent_1" targetElement="Task_0rx0dkh">
+        <di:waypoint x="261.0" y="286.0"/>
+        <di:waypoint x="315.0" y="288.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0la7xhp" id="BPMNEdge_SequenceFlow_0la7xhp" sourceElement="Task_13ch4e2" targetElement="IntermediateThrowEvent_07i57vp">
+        <di:waypoint x="565.0" y="288.0"/>
+        <di:waypoint x="615.0" y="286.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0z2dzmc" id="BPMNEdge_SequenceFlow_0z2dzmc" sourceElement="IntermediateThrowEvent_07i57vp" targetElement="EndEvent_0s0twfi">
+        <di:waypoint x="647.0" y="286.0"/>
+        <di:waypoint x="701.0" y="286.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2" id="BPMNEdge__2" sourceElement="BoundaryEvent_0vvy7r4" targetElement="Task_1ccwoaz">
+        <di:waypoint x="364.1311431355505" y="341.9994625371619"/>
+        <di:waypoint x="364.672131147541" y="408.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3" id="BPMNEdge__3" sourceElement="BoundaryEvent_11dln2v" targetElement="Task_0nyfle9">
+        <di:waypoint x="514.2622598438288" y="341.9978504735627"/>
+        <di:waypoint x="515.344262295082" y="408.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

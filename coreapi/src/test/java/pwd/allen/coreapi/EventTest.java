@@ -1,5 +1,6 @@
 package pwd.allen.coreapi;
 
+import com.google.common.collect.Maps;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.Job;
@@ -11,7 +12,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pwd.allen.bean.MyJavaDelegate;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -151,6 +154,25 @@ public class EventTest {
         //流程到了commonTask
         List<Execution> list = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).list();
         logger.info("执行流数量：{}", list.size());
+    }
+
+    /**
+     * 补偿事件
+     * 补偿中间抛出事件执行后 会触发补偿边界事件（触发顺序是流程的反方向）
+     * 补偿边界事件指向的serviceTask需要加上isForCompensation=true，之前正常执行的流程serviceTask设置的局部变量可以在补偿处理者中获取（execution.getVariable）；如果serviceTask循环执行多次，则补偿时也会补偿多次
+     */
+    @Test
+    @Deployment(resources = "bpmn/event/compensation.bpmn20.xml")
+    public void compensationEvent() throws InterruptedException {
+
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+
+        MyJavaDelegate myJavaDelegate = new MyJavaDelegate();
+
+        HashMap<String, Object> variables = Maps.newHashMap();
+        variables.put("myJavaDelegate", myJavaDelegate);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_1", variables);
+
     }
 
 }
