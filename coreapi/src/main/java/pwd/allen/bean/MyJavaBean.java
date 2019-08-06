@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 门那粒沙
@@ -29,5 +31,16 @@ public class MyJavaBean implements Serializable {
 
     public void doSomething() {
         logger.info("call method doSomething of MyJavaBean {}", this);
+    }
+
+    public List<String> getCandidateUsers() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("user1");
+        list.add("user2");
+        return list;
+    }
+
+    public String getCandidateGroup() {
+        return "group1";
     }
 }

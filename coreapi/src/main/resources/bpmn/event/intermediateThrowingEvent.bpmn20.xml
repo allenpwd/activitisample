@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1564930909196" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+
+  <signal id="mySignal" name="mySignName" />
+
+  <process id="my-process">
+    <startEvent id="_2" name="StartEvent"/>
+    <parallelGateway id="_3" name="ParallelGateway"/>
+
+    <userTask activiti:exclusive="true" id="zhifu" name="支付"/>
+    <intermediateThrowEvent id="signalThrow" name="IntermediateThrowingEvent">
+      <signalEventDefinition signalRef="mySignal"/>
+    </intermediateThrowEvent>
+
+    <intermediateCatchEvent id="signalCatch" name="IntermediateCatchingEvent">
+      <signalEventDefinition signalRef="mySignal"/>
+    </intermediateCatchEvent>
+    <userTask activiti:exclusive="true" id="_5" name="系统生成订单"/>
+
+    <endEvent id="_8" name="EndEvent"/>
+
+    <parallelGateway id="_9" name="ParallelGateway"/>
+
+    <sequenceFlow id="_6" sourceRef="_2" targetRef="_3"/>
+    <sequenceFlow id="_7" sourceRef="_3" targetRef="zhifu"/>
+    <sequenceFlow id="_15" sourceRef="zhifu" targetRef="signalThrow"/>
+    <sequenceFlow id="_16" sourceRef="signalThrow" targetRef="_9"/>
+    <sequenceFlow id="_12" sourceRef="_3" targetRef="signalCatch"/>
+    <sequenceFlow id="_13" sourceRef="signalCatch" targetRef="_5"/>
+    <sequenceFlow id="_14" sourceRef="_5" targetRef="_9"/>
+    <sequenceFlow id="_17" sourceRef="_9" targetRef="_8"/>
+  </process>
+
+</definitions>

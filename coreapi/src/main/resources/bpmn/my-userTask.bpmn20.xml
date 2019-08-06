@@ -10,17 +10,27 @@
 
 		<startEvent id="start" />
 		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		
+		<!-- 方式一：直接指定 -->
+		<!--<userTask id="someTask" name="test User Task!"-->
+				  <!--activiti:candidateUsers="user1,user2"-->
+				  <!--activiti:candidateGroups="group1">-->
+		<!--</userTask>-->
+
+		<!-- 方式二：juel表达式指定，需要确保myJavaBean获取得到，这种方式最灵活 -->
 		<userTask id="someTask" name="test User Task!"
-				  activiti:candidateUsers="user1,user2"
-				  activiti:candidateGroups="group1">
-			<!-- 另一种指定候选人、组的方式，不指定user或者group则默认被视作用户组
+				  activiti:candidateUsers="${myJavaBean.getCandidateUsers()}"
+				  activiti:candidateGroups="${myJavaBean.getCandidateGroup()}">
+		</userTask>
+
+		<!-- 方式三：另一种指定候选人、组的方式，不指定user或者group则默认被视作用户组 -->
+		<!--<userTask id="someTask" name="test User Task!">-->
 			<!--<potentialOwner>-->
 				<!--<resourceAssignmentExpression>-->
 					<!--<formalExpression>user(user1,user2),group(group1)</formalExpression>-->
 				<!--</resourceAssignmentExpression>-->
 			<!--</potentialOwner>-->
-		</userTask>
+		<!--</userTask>-->
+
 		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
 
 		<endEvent id="end" />

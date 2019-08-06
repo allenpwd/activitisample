@@ -11,6 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pwd.allen.bean.MyJavaBean;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,7 +31,10 @@ public class UserTaskTest {
 	@Test
 	@Deployment(resources = {"bpmn/my-userTask.bpmn20.xml"})
 	public void test() {
-		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
+
+        HashMap<String, Object> varMap = new HashMap<>();
+        varMap.put("myJavaBean", new MyJavaBean());
+        ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", varMap);
 
 		//候选人
 		TaskService taskService = activitiRule.getTaskService();
