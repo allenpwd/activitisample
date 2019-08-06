@@ -157,6 +157,29 @@ public class EventTest {
     }
 
     /**
+     * 中间抛出事件
+     */
+    @Test
+    @Deployment(resources = "bpmn/event/intermediateThrowingEvent.bpmn20.xml")
+    public void intermediateThrowingEvent() throws InterruptedException {
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+
+        //根据流程定义key启动流程，默认使用最新版本，常用
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("my-process");
+
+        //并行网关 产生两个执行节点，一个是“支付”节点，一个是中间信号捕获事件，等待接收信号
+        List<Execution> list = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().list();
+        logger.info("当前执行节点数 {}", list.size());
+
+        //处理“支付”节点，走到中间抛出事件，抛出信号，触发中间信号捕获事件，流程到达“系统生成订单”
+        Task task = activitiRule.getTaskService().createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+        activitiRule.getTaskService().complete(task.getId());
+
+        Execution execution = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().singleResult();
+        logger.info("当前执行节点 {}", execution);
+    }
+
+    /**
      * 补偿事件
      * 补偿中间抛出事件执行后 会触发补偿边界事件（触发顺序是流程的反方向）
      * 补偿边界事件指向的serviceTask需要加上isForCompensation=true，之前正常执行的流程serviceTask设置的局部变量可以在补偿处理者中获取（execution.getVariable）；如果serviceTask循环执行多次，则补偿时也会补偿多次
