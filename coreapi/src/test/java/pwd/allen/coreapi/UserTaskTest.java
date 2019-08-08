@@ -29,7 +29,7 @@ public class UserTaskTest {
 	 * 以流程配置文件方式指定任务的候选人或候选组，设置代理人
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-userTask.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/userTask/my-userTask.bpmn20.xml"})
 	public void test() {
 
         HashMap<String, Object> varMap = new HashMap<>();
@@ -68,7 +68,7 @@ public class UserTaskTest {
 	 * 测试任务监听器TaskListener方式设置候选人或候选组
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-userTask2.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/userTask/my-userTask2.bpmn20.xml"})
 	public void testTaskListener() {
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 

@@ -20,7 +20,7 @@
 				<!-- 将执行流的输出作为流程参数存到流程中 -->
 				<activiti:field name="outputVariable" stringValue="javaHome"/>
 				<!--设置此命令的工作目录，默认当前目录-->
-				<activiti:field name="directory" stringValue="D:/code"/>
+				<activiti:field name="directory" stringValue="C:\Program Files"/>
 			</extensionElements>
 		</serviceTask>
 		<userTask id="userTask" name="useTask"/>

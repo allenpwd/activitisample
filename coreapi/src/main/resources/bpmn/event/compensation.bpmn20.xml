@@ -5,9 +5,9 @@
 
     <startEvent id="StartEvent_1"/>
     <sequenceFlow id="SequenceFlow_0an5z6s" sourceRef="StartEvent_1" targetRef="Task_0rx0dkh"/>
-    <serviceTask activiti:exclusive="true" id="Task_0rx0dkh" name="工商银行扣款" activiti:expression="${myJavaDelegate.print('工商银行扣款')}"/>
+    <serviceTask activiti:exclusive="true" id="Task_0rx0dkh" name="工商银行扣款" activiti:expression="${myJavaBean.print(execution, '工商银行扣款')}"/>
     <sequenceFlow id="SequenceFlow_130d1g0" sourceRef="Task_0rx0dkh" targetRef="Task_13ch4e2"/>
-    <serviceTask activiti:exclusive="true" id="Task_13ch4e2" name="农业银行加款" activiti:expression="${myJavaDelegate.print('农业银行加款')}"/>
+    <serviceTask activiti:exclusive="true" id="Task_13ch4e2" name="农业银行加款" activiti:expression="${myJavaBean.print(execution, '农业银行加款')}"/>
     <sequenceFlow id="SequenceFlow_0la7xhp" sourceRef="Task_13ch4e2" targetRef="IntermediateThrowEvent_07i57vp"/>
     <intermediateThrowEvent id="IntermediateThrowEvent_07i57vp">
       <!--  waitForCompletion属性决定抛出的事件是否等待补偿完成
@@ -22,12 +22,12 @@
     <boundaryEvent attachedToRef="Task_0rx0dkh" cancelActivity="true" id="BoundaryEvent_0vvy7r4">
       <compensateEventDefinition id="BoundaryEvent_0vvy7r4_ED_1" waitForCompletion="true"/>
     </boundaryEvent>
-    <serviceTask activiti:exclusive="true" id="Task_1ccwoaz" name="工商银行补偿" activiti:expression="${myJavaDelegate.print('工商银行补偿')}" isForCompensation="true"/>
+    <serviceTask activiti:exclusive="true" id="Task_1ccwoaz" name="工商银行补偿" activiti:expression="${myJavaBean.print(execution, '工商银行补偿')}" isForCompensation="true"/>
 
     <boundaryEvent attachedToRef="Task_13ch4e2" cancelActivity="true" id="BoundaryEvent_11dln2v">
       <compensateEventDefinition id="BoundaryEvent_11dln2v_ED_1" waitForCompletion="true"/>
     </boundaryEvent>
-    <serviceTask activiti:exclusive="true" id="Task_0nyfle9" name="农业银行补偿" activiti:expression="${myJavaDelegate.print('农业银行补偿')}" isForCompensation="true"/>
+    <serviceTask activiti:exclusive="true" id="Task_0nyfle9" name="农业银行补偿" activiti:expression="${myJavaBean.print(execution, '农业银行补偿')}" isForCompensation="true"/>
     
     <association associationDirection="One" id="_2" sourceRef="BoundaryEvent_0vvy7r4" targetRef="Task_1ccwoaz"/>
     <association associationDirection="One" id="_3" sourceRef="BoundaryEvent_11dln2v" targetRef="Task_0nyfle9"/>

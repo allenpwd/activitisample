@@ -49,7 +49,4 @@ public class MyJavaDelegate implements JavaDelegate, Serializable {
         logger.info("call method doSomething of MyJavaDelegate {}", this);
     }
 
-    public void print(String str) {
-        System.out.println("【MyJavaDelegate】print：" + str);
-    }
 }

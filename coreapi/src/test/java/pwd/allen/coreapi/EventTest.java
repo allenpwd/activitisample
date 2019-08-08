@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pwd.allen.bean.MyJavaBean;
 import pwd.allen.bean.MyJavaDelegate;
 
 import java.util.HashMap;
@@ -190,11 +191,12 @@ public class EventTest {
 
         RuntimeService runtimeService = activitiRule.getRuntimeService();
 
-        MyJavaDelegate myJavaDelegate = new MyJavaDelegate();
-
         HashMap<String, Object> variables = Maps.newHashMap();
-        variables.put("myJavaDelegate", myJavaDelegate);
+        variables.put("myJavaBean", new MyJavaBean());
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_1", variables);
+
+        List<Execution> list = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).list();
+        logger.info("当前执行节点数 {}", list.size());
 
     }
 

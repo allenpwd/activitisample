@@ -38,7 +38,7 @@ public class ScriptTaskTest {
 	 * groovy基于JVM，故可以轻松使用java类
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-script-groovy.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/script/my-script-groovy.bpmn20.xml"})
 	public void test() {
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 
@@ -59,7 +59,7 @@ public class ScriptTaskTest {
 	 * 测试juel脚本任务返回数据
 	 */
 	@Test
-	@Deployment(resources = {"bpmn/my-script2.bpmn20.xml"})
+	@Deployment(resources = {"bpmn/script/my-script2.bpmn20.xml"})
 	public void testJuelForReturn() {
 		Map<String, Object> vars = new HashMap<String, Object>();
 		vars.put("key1", 3);

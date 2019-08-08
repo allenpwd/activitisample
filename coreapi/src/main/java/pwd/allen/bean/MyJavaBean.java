@@ -1,8 +1,10 @@
 package pwd.allen.bean;
 
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.runtime.Execution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,5 +44,13 @@ public class MyJavaBean implements Serializable {
 
     public String getCandidateGroup() {
         return "group1";
+    }
+
+    public void print(Execution exec, String str) {
+        logger.info("【MyJavaBean】execution=" + exec + "，str=" + str);
+    }
+
+    public void setTask(DelegateTask task) {
+        logger.info("【MyJavaBean】task=" + task);
     }
 }
