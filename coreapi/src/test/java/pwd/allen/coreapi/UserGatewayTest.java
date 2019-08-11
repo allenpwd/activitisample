@@ -3,6 +3,7 @@ package pwd.allen.coreapi;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -32,6 +33,7 @@ public class UserGatewayTest {
 
 	/**
 	 * 测试排他网关 只会走一条线，如果多个条件满足则按顺序走最先满足的，
+	 * 如果没有一条满足则报错：No outgoing sequence flow of the exclusive gateway 'myGatewayId' could be selected for continuing the process
 	 */
 	@Test
 	@Deployment(resources = {"bpmn/gateway/my-process-Exclusive.bpmn20.xml"})
@@ -101,6 +103,30 @@ public class UserGatewayTest {
 			logger.info("task = {}", task);
 			taskService.complete(task.getId());
 		}
+	}
+
+	/**
+	 * 测试事件网关（eventBasedGateway）
+	 * 事件网关只会选择最先触发的事件所在的分支向前执行
+	 * eventBasedGateway只能指向中间捕获事件，否则会报错：Event based gateway can only be connected to elements of type intermediateCatchEvent
+	 * 场景：事件网关流向两个中间事件，一个定时中间事件（5秒），一个信号中间捕获事件；
+	 * 5秒内发出mySignalName信号则走task1，否则走task2
+	 */
+	@Test
+	@Deployment(resources = {"bpmn/gateway/eventBaseGateway.bpmn20.xml"})
+	public void eventBaseGateway() throws InterruptedException {
+		//流程走到事件网关会产生两个中间事件，等待事件触发执行
+		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
+
+		TaskService taskService = activitiRule.getTaskService();
+
+		logger.info("tasks.size:{}", taskService.createTaskQuery().processInstanceId(processInstance.getId()).count());
+
+		Thread.sleep(6000);
+
+		activitiRule.getRuntimeService().signalEventReceived("mySignalName");
+
+		logger.info("tasks.size:{}", taskService.createTaskQuery().processInstanceId(processInstance.getId()).count());
 	}
 
 }

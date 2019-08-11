@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+
+		<startEvent id="start" />
+		<serviceTask id="task1" name="taskName1" activiti:async="false" activiti:expression="${myJavaBean.execute(execution)}">
+			<!-- 配置多实例
+			循环次数的几种方式：
+			1）loopCardinality直接指定数值
+			2）loopDataInputRef指定流程参数名（BPMN规范方式），参数类型为集合，活动将按照集合的大小进行循环
+			3）activiti:collection指定juel表达式（Activiti方式），集合可以从流程参数中获取，也可以调用对象的方法获取，活动将按照集合的大小进行循环
+
+			activiti:elementVariable：以指定的属性值作为参数名，将集合对应的元素设置到子执行流的流程参数中
+
+			循环的内置参数
+			1）nrOfInstances：实例总数，为loopCardinality指定的值或者指定的集合的大小
+			2）nrActiveInstances：当前正在执行的实例数，若isSequential=true则该值总是为1，否则执行完一个实例就减1
+			3）nrOfCompletedInstances：已经完成的实例数
+			4）loopCounter：当前循环的索引
+
+			completionCondition：指定循环结束条件
+			 -->
+			<multiInstanceLoopCharacteristics isSequential="false" activiti:elementVariable="eleVar" activiti:collection="${loopDataInput}">
+				<!--<loopDataInputRef>loopDataInput</loopDataInputRef>-->
+				<!--<loopCardinality>2</loopCardinality>-->
+				<completionCondition>${nrOfCompletedInstances >= 1}</completionCondition>
+			</multiInstanceLoopCharacteristics>
+		</serviceTask>
+		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="task1" />
+		<sequenceFlow id="flow2" sourceRef="task1" targetRef="end" />
+
+	</process>
+
+</definitions>

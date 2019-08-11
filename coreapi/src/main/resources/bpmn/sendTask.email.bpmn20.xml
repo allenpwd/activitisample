@@ -16,7 +16,7 @@
 				</activiti:field>
 				<!-- 多个用逗号隔开，to要指定，否则报No recipient is defined on the mail activity -->
 				<activiti:field name="to">
-					<activiti:string><![CDATA[994266136@qq.com]]></activiti:string>
+					<activiti:string><![CDATA[397488476@qq.com,994266136@qq.com]]></activiti:string>
 				</activiti:field>
 				<activiti:field name="charset">
 					<activiti:string><![CDATA[utf-8]]></activiti:string>

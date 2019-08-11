@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1565496777943" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <signal id="mySignal" name="mySignalName"/>
+  <process id="my-process" isClosed="false" isExecutable="true" processType="None">
+    <startEvent id="_2" name="StartEvent"/>
+    <eventBasedGateway eventGatewayType="Exclusive" gatewayDirection="Unspecified" id="_3" instantiate="false" name="EventGateway"/>
+    <intermediateCatchEvent id="_4" name="IntermediateCatchingEvent">
+      <signalEventDefinition signalRef="mySignal"></signalEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent activiti:async="true" id="_5" name="IntermediateCatchingEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <userTask activiti:exclusive="true" id="_6" name="task1"/>
+    <userTask activiti:exclusive="true" id="_7" name="task2"/>
+    <endEvent id="_8" name="EndEvent"/>
+    <sequenceFlow id="_9" sourceRef="_6" targetRef="_8"/>
+    <sequenceFlow id="_10" sourceRef="_7" targetRef="_8"/>
+    <sequenceFlow id="_11" sourceRef="_4" targetRef="_6"/>
+    <sequenceFlow id="_12" sourceRef="_5" targetRef="_7"/>
+    <sequenceFlow id="_13" sourceRef="_3" targetRef="_4"/>
+    <sequenceFlow id="_14" sourceRef="_3" targetRef="_5"/>
+    <sequenceFlow id="_15" sourceRef="_2" targetRef="_3"/>
+  </process>
+</definitions>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+
+		<startEvent id="start" />
+
+		<!--配置特别子流程
+		ordering:指定子流程中节点的执行顺序（并行or串行），如果为Sequential则一次只能激活一个activityId
+		-->
+		<adHocSubProcess id="myAdHocSubProcess" name="" ordering="Parallel">
+			<serviceTask id="task1" name="task1" activiti:class="pwd.allen.bean.MyJavaDelegate"/>
+			<userTask id="task2" name="task2" />
+		</adHocSubProcess>
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="myAdHocSubProcess" />
+		<sequenceFlow id="flow3" sourceRef="myAdHocSubProcess" targetRef="end" />
+
+		<endEvent id="end" />
+
+	</process>
+
+</definitions>

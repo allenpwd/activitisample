@@ -12,6 +12,12 @@
     <!-- 如果有定时事件，需要打开异步执行器 -->
     <property name="asyncExecutorActivate" value="true" />
     <!--<property name="enableVerboseExecutionTreeLogging" value="true" />-->
+
+    <property name="customPostDeployers">
+      <list>
+        <bean class="org.activiti.engine.impl.rules.RulesDeployer"/>
+      </list>
+    </property>
   </bean>
 
 </beans>
