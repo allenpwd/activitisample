@@ -47,7 +47,6 @@ public class MyJavaBean implements Serializable {
         }
         logger.info("*********end***********execution {}\n", execution);
     }
-}
 
     public List<String> getCandidateUsers() {
         ArrayList<String> list = new ArrayList<>();
