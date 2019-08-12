@@ -3,7 +3,7 @@
   <process id="my-process" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" name="StartEvent"/>
     <userTask activiti:exclusive="true" id="_3" name="录入bean"/>
-    <!-- activiti:ruleVariablesInput指定流程参数作为规则事实，交给规则引擎处理；activiti:resultVariable指定最终结果以result为参数名保存在流程参数中 -->
+    <!-- activiti:ruleVariablesInput指定流程参数作为规则事实（多个用逗号隔开），交给规则引擎处理；activiti:resultVariable指定最终结果以result为参数名保存在流程参数中（类型是ArrayList） -->
     <businessRuleTask id="_4" name="匹配规则"
              activiti:resultVariable="result" activiti:ruleVariablesInput="${bean}"></businessRuleTask>
     <serviceTask activiti:exclusive="true" id="_5" name="ServiceTask" activiti:expression="${bean.execute(execution)}"/>

@@ -74,7 +74,6 @@
             <version>6.5.0.Final</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.drools/knowledge-api -->
         <dependency>
             <groupId>org.drools</groupId>

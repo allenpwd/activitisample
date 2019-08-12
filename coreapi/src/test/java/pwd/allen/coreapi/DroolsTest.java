@@ -64,6 +64,13 @@ public class DroolsTest {
 
     /**
      * 测试调用drools规则task
+     * 需引用drools-compiler和knowledge-api（用来兼容activiti对drools的调用，缺失的话acitivit执行drools任务时会报classNotFound错误）
+     * 需配置规则文件的部署实现类，否则执行规则任务会报错deployment XXX doesn't contain any rules;配置格式
+     *     <property name="customPostDeployers">
+     *       <list>
+     *         <bean class="org.activiti.engine.impl.rules.RulesDeployer"/>
+     *       </list>
+     *     </property>
      */
     @Test
     @Deployment(resources = {"drools/test.drl", "bpmn/droolsTask.bpmn20.xml"})
@@ -76,6 +83,7 @@ public class DroolsTest {
 
         Task task = activitiRule.getTaskService().createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
 
+        //设置流程参数bean，完成任务后会走到businessRuleTask，以bean为规则事实进行drools规则匹配，结果以result作为参数名放到流程变量中
         HashMap<String, Object> varMap = new HashMap<>();
         varMap.put("bean", new MyJavaBean());
         activitiRule.getTaskService().complete(task.getId(), varMap);

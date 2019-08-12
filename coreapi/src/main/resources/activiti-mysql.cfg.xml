@@ -13,6 +13,7 @@
     <property name="asyncExecutorActivate" value="true" />
     <!--<property name="enableVerboseExecutionTreeLogging" value="true" />-->
 
+    <!-- 配置规则文件的部署实现类 -->
     <property name="customPostDeployers">
       <list>
         <bean class="org.activiti.engine.impl.rules.RulesDeployer"/>
