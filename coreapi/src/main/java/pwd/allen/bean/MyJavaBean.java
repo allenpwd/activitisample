@@ -38,7 +38,7 @@ public class MyJavaBean implements Serializable {
     }
 
     public void execute(DelegateExecution execution) {
-        logger.info("\n*********begin***********execution {}", execution);
+        logger.info("*********begin***********execution {}", execution);
         Map<String, VariableInstance> variableInstances = execution.getVariableInstances();
 
         for (Map.Entry<String, VariableInstance> entry : variableInstances.entrySet()) {
