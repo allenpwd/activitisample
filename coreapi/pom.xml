@@ -71,7 +71,15 @@
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-compiler</artifactId>
-            <version>7.24.0.Final</version>
+            <version>6.5.0.Final</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.drools/knowledge-api -->
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>knowledge-api</artifactId>
+            <version>6.5.0.Final</version>
         </dependency>
 
 

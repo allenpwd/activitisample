@@ -5,6 +5,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
+import org.drools.runtime.StatefulKnowledgeSession;
 import org.junit.Rule;
 import org.junit.Test;
 import org.kie.api.runtime.KieSession;
@@ -32,8 +33,9 @@ public class DroolsTest {
      */
     @Test
     public void testDrools() throws Exception {
-        KieSession kSession = null;
+        StatefulKnowledgeSession kSession = null;
 
+        /** 新版 7.24.0.Final 的 操作代码 **/
 //        KieServices kieServices = KieServices.Factory.get();
 //        KieFileSystem kfs = kieServices.newKieFileSystem();
 //        kfs.write( "src/main/resources/simple.drl", kieServices.getResources().newClassPathResource("drools/test.drl"));

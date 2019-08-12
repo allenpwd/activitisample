@@ -1,26 +1,23 @@
 package pwd.allen;
 
+import org.drools.KnowledgeBase;
+import org.drools.KnowledgeBaseFactory;
+import org.drools.builder.*;
+import org.drools.core.impl.InternalKnowledgeBase;
+import org.drools.io.ResourceFactory;
+import org.drools.runtime.StatefulKnowledgeSession;
+import org.kie.api.runtime.KieSession;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.drools.core.base.DefaultKnowledgeHelperFactory;
-import org.drools.core.impl.InternalKnowledgeBase;
-import org.drools.core.impl.KnowledgeBaseFactory;
-import org.kie.api.io.ResourceType;
-import org.kie.api.runtime.KieSession;
-import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderError;
-import org.kie.internal.builder.KnowledgeBuilderErrors;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.io.ResourceFactory;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
 
 public class DroolsUtil {
 	
 	private KnowledgeBuilder knowledgeBuilder;
-	private InternalKnowledgeBase kBase;
-	private KieSession kSession;
+	private KnowledgeBase kBase;
+	private StatefulKnowledgeSession kSession;
 	
     public void init() throws Exception {
     	if (kSession != null) {
@@ -79,24 +76,24 @@ public class DroolsUtil {
 		}
     }
 
-    public KieSession getKSession() {
+    public StatefulKnowledgeSession getKSession() {
     	if (kSession == null) {
 			kBase = KnowledgeBaseFactory.newKnowledgeBase();
-			kBase.addPackages(knowledgeBuilder.getKnowledgePackages());
-    		kSession = kBase.newKieSession();
+			kBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
+    		kSession = kBase.newStatefulKnowledgeSession();
     	}
 		return kSession;
     }
 	
-    public KieSession getNewKSession() {
+    public StatefulKnowledgeSession getNewKSession() {
     	if (kSession != null) {
     		closeSession();
     	}
     	if (kBase == null) {
     		kBase = KnowledgeBaseFactory.newKnowledgeBase();
-    		kBase.addPackages(knowledgeBuilder.getKnowledgePackages());
+    		kBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
     	}
-    	kSession = kBase.newKieSession();
+    	kSession = kBase.newStatefulKnowledgeSession();
 		return kSession;
     }
     
@@ -117,7 +114,7 @@ public class DroolsUtil {
 		return knowledgeBuilder;
 	}
 
-	public InternalKnowledgeBase getkBase() {
+	public KnowledgeBase getkBase() {
 		return kBase;
 	}
 
