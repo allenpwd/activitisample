@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-callActivity-process">
+
+		<startEvent id="start" />
+
+		<userTask id="callActivityTask" name="callActivityTask" />
+
+		<callActivity id="myCallActivity" name="myCallActivity" calledElement="my-process">
+			<extensionElements>
+				<!--子流程输入参数 source:主流程参数名 target:子流程参数名 -->
+				<activiti:in source="sourceIn" target="targetIn"/>
+				<!--子流程输入参数 source:juel表达式指定参数值 target:子流程参数名 -->
+				<activiti:in sourceExpression="${myJavaBean.value}" target="targetIn2"/>
+				<!--子流程输出参数 source:子流程参数名 target:主流程参数名 -->
+				<activiti:out source="sourceOut" target="targetOut"/>
+			</extensionElements>
+		</callActivity>
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="callActivityTask" />
+		<sequenceFlow id="flow2" sourceRef="callActivityTask" targetRef="myCallActivity" />
+		<sequenceFlow id="flow3" sourceRef="myCallActivity" targetRef="end" />
+
+		<endEvent id="end" />
+
+	</process>
+
+</definitions>

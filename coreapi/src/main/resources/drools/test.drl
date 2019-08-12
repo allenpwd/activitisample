@@ -1,0 +1,16 @@
+package pwd.allen.bean
+
+rule "test"
+    when
+        $bean : MyJavaBean(value=="doSomething")
+    then
+        $bean.doSomething();
+end
+
+rule "test2"
+    when
+        $bean : MyJavaBean(value == null)
+    then
+        $bean.setValue("doSomething");
+        update($bean);
+end

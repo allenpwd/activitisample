@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+	<process id="my-process">
+		<startEvent id="start" />
+		<sendTask id="myTask" name="my email Task!" activiti:type="mail" >
+			<extensionElements>
+				<!-- from要和配置的mailServerUsername一样，否则报553 Mail from must equal authorized user；如果没配置mailServerDefaultFrom，则from不能省略 -->
+				<activiti:field name="from">
+					<activiti:string><![CDATA[13611481645@163.com]]></activiti:string>
+				</activiti:field>
+				<!-- 多个用逗号隔开，to要指定，否则报No recipient is defined on the mail activity -->
+				<activiti:field name="to">
+					<activiti:string><![CDATA[397488476@qq.com,994266136@qq.com]]></activiti:string>
+				</activiti:field>
+				<activiti:field name="charset">
+					<activiti:string><![CDATA[utf-8]]></activiti:string>
+				</activiti:field>
+				<activiti:field name="subject">
+					<activiti:string><![CDATA[activiti邮件测试]]></activiti:string>
+				</activiti:field>
+				<!--抄送，多个用逗号隔开-->
+				<activiti:field name="cc">
+					<activiti:string><![CDATA[13611481645@163.com]]></activiti:string>
+				</activiti:field>
+				<!--密送，多个用逗号隔开-->
+				<activiti:field name="bcc">
+					<activiti:string><![CDATA[13611481645@163.com]]></activiti:string>
+				</activiti:field>
+				<!-- 如果html text都指定则优先html -->
+				<activiti:field name="html">
+					<activiti:string><![CDATA[<html><h1 color='blue'>h1标题</h1><span><b style='color:#aaaaaa'>粗体</b><i>斜体</i></span></html>]]></activiti:string>
+				</activiti:field>
+				<activiti:field name="text">
+					<activiti:string><![CDATA[<html><h1 color='blue'>h1标题</h1><span><b style='color:#aaaaaa'>粗体</b><i>斜体</i></span></html>]]></activiti:string>
+				</activiti:field>
+			</extensionElements>
+		</sendTask>
+		<endEvent id="end" />
+
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="myTask" />
+		<sequenceFlow id="flow2" sourceRef="myTask" targetRef="end" />
+
+	</process>
+
+</definitions>

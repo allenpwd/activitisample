@@ -4,6 +4,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.runtime.Execution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 门那粒沙
@@ -34,6 +36,18 @@ public class MyJavaBean implements Serializable {
     public void doSomething() {
         logger.info("call method doSomething of MyJavaBean {}", this);
     }
+
+    public void execute(DelegateExecution execution) {
+        logger.info("*********begin***********execution {}\n", execution);
+        Map<String, VariableInstance> variableInstances = execution.getVariableInstances();
+
+        for (Map.Entry<String, VariableInstance> entry : variableInstances.entrySet()) {
+            VariableInstance var = entry.getValue();
+            logger.info("var name={}, value={}", var.getName(), var.getValue());
+        }
+        logger.info("*********end***********execution {}\n", execution);
+    }
+}
 
     public List<String> getCandidateUsers() {
         ArrayList<String> list = new ArrayList<>();
