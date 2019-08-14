@@ -16,7 +16,7 @@
             <output id="outputId" label="Output 1" name="myResult" typeRef="string" />
             <rule>
                 <inputEntry id="inputEntry2">
-                    <text><![CDATA[ .age > 18 ]]></text>
+                    <text><![CDATA[ .name.equals('Angus') and .age > 18 ]]></text>
                 </inputEntry>
                 <inputEntry id="inputEntry2_2">
                     <text><![CDATA[ .equals('this is str') ]]></text>
