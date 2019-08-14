@@ -3,6 +3,7 @@ import org.activiti.dmn.engine.DmnEngine;
 import org.activiti.dmn.engine.DmnEngineConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pwd.allen.entity.Person;
 
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  * @create 2019-08-12 22:21
  *
  * 遇到的问题
- * mysql用了高版本 在已有表的基础上更新表schame会报错：liquibase.exception.DatabaseException: liquibase.exception.DatabaseException: java.sql.SQLException: Column name pattern can not be NULL or empty.
+ * mysql如果用了高版本 在已有表的基础上更新表schame会报错：liquibase.exception.DatabaseException: liquibase.exception.DatabaseException: java.sql.SQLException: Column name pattern can not be NULL or empty.
  * 处理方式：换成低版本
  **/
 public class FirstDmn {
@@ -39,8 +40,12 @@ public class FirstDmn {
 
         //初始化
         HashMap<String, Object> params = new HashMap<>();
-        params.put("personAge", 19);
-        params.put("personName", "Angus");
+        params.put("str", "this is str");
+
+        Person person = new Person();
+        person.setName("Angus");
+        person.setAge(19);
+        params.put("person", person);
 
         //传入参数执行决策，并返回结果
         RuleEngineExecutionResult executionResult = ruleService.executeDecisionByKey(dmnDecisionTable.getKey(), params);
@@ -48,8 +53,7 @@ public class FirstDmn {
         logger.info("myResult = {}", executionResult.getResultVariables().get("myResult"));
 
         //再次决策
-        params.put("personAge", 18);
-        params.put("personName", "Angus");
+        person.setAge(18);
         executionResult = ruleService.executeDecisionByKey(dmnDecisionTable.getKey(), params);
         logger.info("myResult = {}", executionResult.getResultVariables().get("myResult"));
     }

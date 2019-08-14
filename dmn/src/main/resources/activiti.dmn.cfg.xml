@@ -9,6 +9,12 @@
     <property name="jdbcUsername" value="root" />
     <property name="jdbcPassword" value="123456" />
     <property name="databaseSchemaUpdate" value="true" />
+    <property name="customExpressionFunctionRegistry" ref="myFunctionRegistry"/>
   </bean>
+
+  <!--自定义函数注册类
+  需要实现CustomExpressionFunctionRegistry接口的getCustomExpressionMethods方法，返回方法实例Map，然后可以在规则表达式中引用自定义函数
+  -->
+  <bean id="myFunctionRegistry" class="pwd.allen.MyFunctionRegistry"/>
 
 </beans>
