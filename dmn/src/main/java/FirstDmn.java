@@ -12,8 +12,10 @@ import java.util.HashMap;
  * @create 2019-08-12 22:21
  *
  * 遇到的问题
- * mysql如果用了高版本 在已有表的基础上更新表schame会报错：liquibase.exception.DatabaseException: liquibase.exception.DatabaseException: java.sql.SQLException: Column name pattern can not be NULL or empty.
+ * 1) mysql如果用了高版本 在已有表的基础上更新表schame会报错：liquibase.exception.DatabaseException: liquibase.exception.DatabaseException: java.sql.SQLException: Column name pattern can not be NULL or empty.
  * 处理方式：换成低版本
+ *
+ * 2) dmn文件的mvel表达式无法用&& ||，用and or的话效果不对
  **/
 public class FirstDmn {
 

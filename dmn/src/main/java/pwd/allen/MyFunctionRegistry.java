@@ -19,6 +19,7 @@ public class MyFunctionRegistry implements CustomExpressionFunctionRegistry {
         try {
             methodMap.put("getMd5", Person.class.getDeclaredMethod("getMd5", String.class));
             methodMap.put("isChild", Person.class.getDeclaredMethod("isChild", Person.class));
+            methodMap.put("print", Person.class.getDeclaredMethod("print", Object.class));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

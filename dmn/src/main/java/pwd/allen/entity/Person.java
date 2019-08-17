@@ -46,4 +46,8 @@ public class Person {
         if (person.getAge() <= 18) return true;
         else return false;
     }
+
+    public static void print(Object obj) {
+        System.out.println("Person.print方法--参数：" + obj);
+    }
 }
