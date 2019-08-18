@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class PersonInfo {
 
+    private String id;
     private String name;
     private Integer age;
 

@@ -25,6 +25,10 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--
+        org.activiti.spring.boot.SecurityAutoConfiguration有注解@AutoConfigureBefore({org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class})
+        因为没有引入security相关jar，所以要排除该自动配置，否则会报错
+        -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
@@ -35,7 +39,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.4</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
 

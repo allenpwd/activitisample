@@ -14,6 +14,7 @@
         <module>coreapi</module>
         <module>springboot</module>
         <module>dmn</module>
+        <module>rest</module>
     </modules>
 
     <parent>

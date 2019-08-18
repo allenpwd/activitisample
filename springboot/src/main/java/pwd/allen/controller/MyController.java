@@ -7,6 +7,7 @@ import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,11 +31,13 @@ public class MyController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping("person/{id}")
+    @GetMapping(value = "person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Object pathVariable(@PathVariable String id) {
         PersonInfo personInfo = new PersonInfo();
         personInfo.setName("哦买噶");
+        personInfo.setAge(23);
+        personInfo.setId(id);
         return personInfo;
     }
 
