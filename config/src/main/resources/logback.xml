@@ -4,7 +4,7 @@
         xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
         debug="false" scan="true" scanPeriod="30 second">
 
-    <property name="log.dir" value="target/logs" />
+    <property name="log.dir" value="logs" />
     <property name="encoding" value="UTF-8" />
     <property name="plain" value="%msg%n" />
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
