@@ -1,24 +1,32 @@
 package pwd.allen.controller;
 
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pwd.allen.entity.PersonInfo;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author 门那粒沙
  * @create 2019-08-17 18:56
  **/
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RequestMapping("my")
 @Controller
 public class MyController {
@@ -31,6 +39,12 @@ public class MyController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private HistoryService historyService;
+
+    @Autowired
+    private RepositoryService repositoryService;
+
     @GetMapping(value = "person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Object pathVariable(@PathVariable String id) {
@@ -41,15 +55,40 @@ public class MyController {
         return personInfo;
     }
 
-    @RequestMapping("startProcess")
+    @RequestMapping("process")
     @ResponseBody
-    public Object startProcess() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("springbootProcess");
-        Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-
-        logger.info("当前流程节点：{}", task);
-
-        return task.getId();
+    public Object process(@RequestParam("action")String action
+            , @RequestParam(value = "instId", required = false)String instId
+            , @RequestParam(value = "taskId", required = false)String taskId
+            , @RequestParam(value = "cand", required = false)String cand) {
+        try {
+            if ("start".equals(action)) {
+                HashMap<String, Object> varMap = new HashMap<>();
+                varMap.put("myJavaBean", new PersonInfo());
+                ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("springbootProcess", varMap);
+                return processInstance.getProcessInstanceId();
+            } else if ("task".equals(action) && instId != null) {
+                TaskQuery taskQuery = taskService.createTaskQuery().processInstanceId(instId);
+                if (cand != null) {
+                    taskQuery.taskCandidateUser(cand);
+                }
+                List<Task> list = taskQuery.list();
+                return list;
+            } else if ("complate".equals(action) && taskId != null) {
+                taskService.complete(taskId);
+                return "执行成功";
+            } else if ("history".equals(action) && instId != null) {
+                List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery().processInstanceId(instId).list();
+                return list;
+            } else if ("repo".equals(action)) {
+                List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.toString();
+        }
+        return null;
     }
 
     @RequestMapping("/complete/{taskId}")
@@ -66,6 +105,10 @@ public class MyController {
         }
 
         return task;
+    }
+
+    public List<String> getCandidateUsers(DelegateExecution execution) {
+        return Arrays.asList("user1", "user2");
     }
 
 }
