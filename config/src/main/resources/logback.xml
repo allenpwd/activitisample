@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
-        debug="false" scan="true" scanPeriod="30 second">
+<configuration debug="false" scan="true" scanPeriod="30 second">
 
     <property name="log.dir" value="logs" />
     <property name="encoding" value="UTF-8" />
@@ -53,13 +50,13 @@
     <!--<logger name="com.github.miemiedev.mybatis.paginator" level="INFO" additivity="false" />-->
 
     <logger name="root" level="INFO" />
-    <!--<logger name="pwd.allen" level="DEBUG" />
-    <logger name="org.activiti.engine" level="DEBUG" />-->
+    <!--<logger name="pwd.allen" level="DEBUG" />-->
+    <logger name="org.activiti.engine" level="DEBUG" />
 
 
     <!-- Logger 根目录 -->
     <root>
         <appender-ref ref="stdout" />
-        <appender-ref ref="file" />
+        <!--<appender-ref ref="file" />-->
     </root>
 </configuration>
