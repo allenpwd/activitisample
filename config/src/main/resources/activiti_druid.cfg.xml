@@ -8,6 +8,7 @@
     <property name="dataSource" ref="dataSource"/>
     <property name="databaseSchemaUpdate" value="true" />
     <!--<property name="databaseTablePrefix" value="pwd_" />-->
+    <!--<property name="historyLevel" value="AUDIT" />-->
   </bean>
 
   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">

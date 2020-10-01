@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
+ * 测试事件日志，数据表为：act_evt_log
  * @author pwd
  * @create 2019-04-07 18:23
  **/
@@ -23,6 +24,9 @@ public class ConfigEventLogTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti_eventlog.cfg.xml");
 
+    /**
+     * 完成一条流程，并打印事件日志
+     */
     @Test
     @Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
     public void test() {

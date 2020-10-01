@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 单元测试注解 创建部署流程
+ * 注解方式创建和部署流程
  * @author pwd
  * @create 2019-04-07 18:23
  **/
@@ -22,6 +22,9 @@ public class Test02 {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti_druid.cfg.xml");
 
+    /**
+     * 测试完后会删除记录
+     */
     @Test
     @Deployment(resources = {"bpmn/my-process.bpmn20.xml"})
     public void testDeploy() {
