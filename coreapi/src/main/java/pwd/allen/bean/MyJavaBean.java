@@ -39,12 +39,14 @@ public class MyJavaBean implements Serializable {
 
     public void execute(DelegateExecution execution) {
         logger.info("*********begin***********execution {}", execution);
-        Map<String, VariableInstance> variableInstances = execution.getVariableInstances();
 
+        // 获取当前流程实例的变量（act_hi_varinst，如果是序列化，字节码存放在act_ge_bytearray）
+        Map<String, VariableInstance> variableInstances = execution.getVariableInstances();
         for (Map.Entry<String, VariableInstance> entry : variableInstances.entrySet()) {
             VariableInstance var = entry.getValue();
             logger.info("var name={}, value={}", var.getName(), var.getValue());
         }
+
         logger.info("*********end***********execution {}\n", execution);
     }
 

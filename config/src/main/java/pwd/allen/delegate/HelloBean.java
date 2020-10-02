@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class HelloBean {
     private static final Logger logger = LoggerFactory.getLogger(HelloBean.class);
-    public void sayHello() {
-        logger.info("{}：say hello", this.getClass().getSimpleName());
+    public void sayHello(String type) {
+        logger.info("------------------{}：say hello", this.getClass().getSimpleName());
+        if ("error".equals(type)) {
+            throw new RuntimeException("我是个错误");
+        }
     }
 }

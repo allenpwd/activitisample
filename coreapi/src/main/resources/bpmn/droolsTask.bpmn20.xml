@@ -2,7 +2,9 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1565535103559" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="my-process" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" name="StartEvent"/>
-    <userTask activiti:exclusive="true" id="_3" name="录入bean"/>
+    <userTask activiti:exclusive="true" id="_3" name="录入bean">
+      <documentation>我会被写入 ACT_RU_TASK.DESCRIPTION_ 字段</documentation>
+    </userTask>
     <!-- activiti:ruleVariablesInput指定流程参数作为规则事实（多个用逗号隔开），交给规则引擎处理；activiti:resultVariable指定最终结果以result为参数名保存在流程参数中（类型是ArrayList） -->
     <businessRuleTask id="_4" name="匹配规则"
              activiti:resultVariable="result" activiti:ruleVariablesInput="${bean}"></businessRuleTask>

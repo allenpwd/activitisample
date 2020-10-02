@@ -9,6 +9,7 @@
     <property name="jdbcUsername" value="root" />
     <property name="jdbcPassword" value="123456" />
     <property name="databaseSchemaUpdate" value="true" />
+    <property name="historyLevel" value="AUDIT" />
     <!-- 如果有定时事件，需要打开异步执行器 -->
     <property name="asyncExecutorActivate" value="true" />
     <!--<property name="enableVerboseExecutionTreeLogging" value="true" />-->

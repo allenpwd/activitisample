@@ -48,8 +48,12 @@ public class ConfigSpringTest {
 
         //在调用complete方法时，会将完成的Task数据从任务表中删除，如果发现这个任务为流程中的最后一个任务，则会连同流程实例的数据一并删除
         //并按照历史配置来记录流程的历史数据。
-        taskService.complete(task.getId());
+        try {
+            taskService.complete(task.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        helloBean.sayHello();
+        helloBean.sayHello(null);
     }
 }

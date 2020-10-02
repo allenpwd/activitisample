@@ -71,6 +71,8 @@ public class DroolsTest {
      *         <bean class="org.activiti.engine.impl.rules.RulesDeployer"/>
      *       </list>
      *     </property>
+     *
+     * 结果：userTask执行后自动继续执行businessRuleTask然后再继续自动执行serviceTask
      */
     @Test
     @Deployment(resources = {"drools/test.drl", "bpmn/droolsTask.bpmn20.xml"})
@@ -87,5 +89,6 @@ public class DroolsTest {
         HashMap<String, Object> varMap = new HashMap<>();
         varMap.put("bean", new MyJavaBean());
         activitiRule.getTaskService().complete(task.getId(), varMap);
+        System.out.println("到这里已经流程执行完毕了");
     }
 }

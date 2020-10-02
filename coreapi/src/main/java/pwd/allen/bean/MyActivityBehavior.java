@@ -14,6 +14,5 @@ public class MyActivityBehavior implements ActivityBehavior {
     @Override
     public void execute(DelegateExecution execution) {
         logger.info("run my activity behavior {}", this);
-
     }
 }
