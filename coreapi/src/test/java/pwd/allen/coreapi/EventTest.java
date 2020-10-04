@@ -152,6 +152,7 @@ public class EventTest {
         Thread.sleep(10000);
         /** timerCatchEvent end **/
 
+
         //流程到了commonTask
         List<Execution> list = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).list();
         logger.info("执行流数量：{}", list.size());

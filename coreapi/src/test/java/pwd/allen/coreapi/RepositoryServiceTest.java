@@ -31,7 +31,7 @@ public class RepositoryServiceTest {
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
         deploymentBuilder.name("测试部署资源")
                 .addClasspathResource("bpmn/my-process.bpmn20.xml")
-                .addClasspathResource("second_approve.bpmn");
+                .addClasspathResource("bpmn/second_approve.bpmn");
 
         //部署两个流程文件，生成的记录有：一个部署记录、两个流程定义记录、两个流程数据流记录、一个流程图记录（my-process没有位置信息，所以没有生成流程图记录）
         //如果流程定义key一样（流程定义文件里的process标签的id属性），则版本会递增，如果用key启动流程且有多个的话默认会选择最新版本的
@@ -41,7 +41,7 @@ public class RepositoryServiceTest {
         deploymentBuilder = repositoryService.createDeployment();
         deploymentBuilder.name("测试部署资源")
                 .addClasspathResource("bpmn/my-process.bpmn20.xml")
-                .addClasspathResource("second_approve.bpmn");
+                .addClasspathResource("bpmn/second_approve.bpmn");
         deploymentBuilder.deploy();
 
         DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery();

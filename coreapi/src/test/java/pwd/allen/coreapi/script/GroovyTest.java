@@ -1,13 +1,17 @@
-package pwd.allen.coreapi;
+package pwd.allen.coreapi.script;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.Date;
 
 /**
+ * groovy脚本测试，需要引入groovy相关Jar
  * @author 门那粒沙
  * @create 2019-12-14 16:45
  **/
@@ -44,5 +48,16 @@ public class GroovyTest {
         System.out.println("Array join:" + joinString);
         shell = null;
         binding = null;
+    }
+
+    @Test
+    public void manager() throws ScriptException {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine groovy = manager.getEngineByName("groovy");
+
+        Object eval = groovy.eval("name='pwd is awesome!'; return name;");
+        System.out.println(eval);
+
+        groovy.eval("for (i = 0; i < 5; i++) { println i;}");
     }
 }

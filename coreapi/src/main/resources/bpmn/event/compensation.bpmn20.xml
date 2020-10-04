@@ -28,7 +28,7 @@
       <compensateEventDefinition id="BoundaryEvent_11dln2v_ED_1" waitForCompletion="true"/>
     </boundaryEvent>
     <serviceTask activiti:exclusive="true" id="Task_0nyfle9" name="农业银行补偿" activiti:expression="${myJavaBean.print(execution, '农业银行补偿')}" isForCompensation="true"/>
-    
+
     <association associationDirection="One" id="_2" sourceRef="BoundaryEvent_0vvy7r4" targetRef="Task_1ccwoaz"/>
     <association associationDirection="One" id="_3" sourceRef="BoundaryEvent_11dln2v" targetRef="Task_0nyfle9"/>
 

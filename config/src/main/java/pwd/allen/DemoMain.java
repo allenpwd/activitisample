@@ -68,6 +68,9 @@ public class DemoMain {
                     LOGGER.info("您输入的内容是【{}】", val);
 
                 }
+                task.setDescription("添加一下内容");
+                taskService.saveTask(task);
+                taskService.addComment(task.getId(), task.getProcessInstanceId(), task.getName());
                 taskService.complete(task.getId(), variables);
                 processInstance = processEngine.getRuntimeService()
                         .createProcessInstanceQuery()
@@ -89,7 +92,7 @@ public class DemoMain {
     private static ProcessDefinition getProcessDefinition(ProcessEngine processEngine) {
         RepositoryService repositoryService = processEngine.getRepositoryService();
         DeploymentBuilder deployment = repositoryService.createDeployment();
-        deployment.addClasspathResource("bpmn/second_approve.bpmn20.xml");
+        deployment.addClasspathResource("bpmn/second_approve.bpmn");
         Deployment deploy = deployment.deploy();
         String deployId = deploy.getId();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
@@ -102,7 +105,7 @@ public class DemoMain {
         ProcessEngineConfiguration cfg = ProcessEngineConfiguration.createProcessEngineConfigurationFromResourceDefault();
         ProcessEngine processEngine = cfg.buildProcessEngine();
         String name = processEngine.getName();
-        String version = processEngine.VERSION;
+        String version = ProcessEngine.VERSION;
         LOGGER.info("流程引擎名称【{}】，版本【{}】", name, version);
         return processEngine;
     }

@@ -1,14 +1,8 @@
-package pwd.allen.coreapi;
+package pwd.allen.coreapi.script;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import org.activiti.engine.HistoryService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricVariableInstance;
-import org.activiti.engine.impl.interceptor.Command;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.junit.Rule;
@@ -19,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -6,6 +6,7 @@
       <extensionElements>
         <activiti:formProperty id="tlApprove" name="主管审批结果" required="true" type="string"/>
         <activiti:formProperty id="tlMessage" name="主管审批备注" required="true" type="string"/>
+        <activiti:taskListener class="pwd.allen.listener.MyTaskListener" event="create"/>
       </extensionElements>
     </userTask>
     <exclusiveGateway gatewayDirection="Unspecified" id="decideTLApprove" name="主管审批校验"/>
@@ -13,6 +14,7 @@
       <extensionElements>
         <activiti:formProperty id="hrApprove" name="人事审批结果" required="true" type="string"/>
         <activiti:formProperty id="hrMessage" name="人事审批备注" required="true" type="string"/>
+        <activiti:taskListener class="pwd.allen.listener.MyTaskListener" event="create"/>
       </extensionElements>
     </userTask>
     <exclusiveGateway gatewayDirection="Unspecified" id="decideHRApprove" name="人事审批校验"/>
@@ -36,6 +38,7 @@
         <activiti:formProperty id="name" name="审批人姓名" required="true" type="string"/>
         <activiti:formProperty datePattern="yyyy-MM-dd" id="submitTime" name="审批创建时间" required="true" type="date"/>
         <activiti:formProperty id="submitType" name="提交类型" required="true" type="string"/>
+        <activiti:taskListener class="pwd.allen.listener.MyTaskListener" event="create"/>
       </extensionElements>
     </userTask>
     <sequenceFlow id="_19" sourceRef="submitForm" targetRef="decideSubmit"/>

@@ -12,6 +12,10 @@
     <property name="jdbcPassword" value="123456" />
     <property name="databaseSchemaUpdate" value="true" />
     <property name="historyLevel" value="AUDIT" />
+    <!-- 解决发布部署模型获取图片中文乱码 -->
+    <property name="activityFontName" value="宋体" />
+    <property name="labelFontName" value="宋体" />
+    <property name="annotationFontName" value="宋体"/>
   </bean>
 
 </beans>
