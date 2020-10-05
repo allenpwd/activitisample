@@ -1,19 +1,9 @@
 package pwd.allen.coreapi;
 
 import com.google.common.collect.Maps;
-import org.activiti.engine.ActivitiEngineAgenda;
-import org.activiti.engine.ManagementService;
-import org.activiti.engine.delegate.JavaDelegate;
-import org.activiti.engine.history.HistoricActivityInstance;
-import org.activiti.engine.impl.interceptor.Command;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import pwd.allen.bean.MyJavaDelegate;
+import pwd.allen.delegate.MyJavaDelegate;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 服务任务

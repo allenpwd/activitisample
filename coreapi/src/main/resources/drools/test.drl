@@ -1,4 +1,4 @@
-package pwd.allen.bean
+package pwd.allen.delegate
 
 rule "test"
     when

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <import resource="classpath:datasource/mysql.xml" />
+
+  <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+    <property name="dataSource" ref="dataSource" />
+
+    <property name="databaseSchemaUpdate" value="true" />
+    <property name="historyLevel" value="AUDIT" />
+
+    <!-- 解决发布部署模型获取图片中文乱码 -->
+    <property name="activityFontName" value="宋体" />
+    <property name="labelFontName" value="宋体" />
+    <property name="annotationFontName" value="宋体"/>
+
+    <!-- 邮箱相关配置 -->
+    <property name="mailServerHost" value="smtp.163.com"></property>
+    <property name="mailServerPort" value="994"></property>
+    <!-- 为true时，mailServerPort设置为994或者465；为false时mailServerPort设置为25 -->
+    <property name="mailServerUseSSL" value="true"></property>
+    <!--<property name="mailServerDefaultFrom" value="13611481645@163.com"></property>-->
+    <property name="mailServerUsername" value="13611481645@163.com"></property>
+    <!--这里是授权码不是帐号密码-->
+    <property name="mailServerPassword" value="xxx"></property>
+  </bean>
+
+</beans>

@@ -1,5 +1,6 @@
 package pwd.allen.coreapi;
 
+import groovy.util.logging.Slf4j;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -8,11 +9,8 @@ import org.activiti.engine.test.Deployment;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.junit.Rule;
 import org.junit.Test;
-import org.kie.api.runtime.KieSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pwd.allen.DroolsUtil;
-import pwd.allen.bean.MyJavaBean;
+import pwd.allen.delegate.MyJavaBean;
+import pwd.allen.util.DroolsUtil;
 
 import java.util.HashMap;
 
@@ -20,12 +18,11 @@ import java.util.HashMap;
  * @author 门那粒沙
  * @create 2019-08-11 21:48
  **/
+@Slf4j
 public class DroolsTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(EventTest.class);
-
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
+    public ActivitiRule activitiRule = new ActivitiRule("activiti-rule.cfg.xml");
 
     /**
      * 测试直接调用drools

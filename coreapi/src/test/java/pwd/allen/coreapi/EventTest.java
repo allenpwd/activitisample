@@ -12,8 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pwd.allen.bean.MyJavaBean;
-import pwd.allen.bean.MyJavaDelegate;
+import pwd.allen.delegate.MyJavaBean;
 
 import java.util.HashMap;
 import java.util.List;

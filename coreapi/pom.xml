@@ -8,70 +8,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>coreapi</artifactId>
 
-
     <dependencies>
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-engine</artifactId>
-            <version>6.0.0</version>
-        </dependency>-->
-
         <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring</artifactId>
-            <version>6.0.0</version>
+            <groupId>pwd.allen</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>5.0.7.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.3.176</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.druid</groupId>
-            <artifactId>druid-wrapper</artifactId>
-            <version>0.2.9</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.drools/drools-compiler -->
-        <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>drools-compiler</artifactId>
-            <version>6.5.0.Final</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.drools/knowledge-api -->
-        <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>knowledge-api</artifactId>
-            <version>6.5.0.Final</version>
-        </dependency>
-
-
-
     </dependencies>
 
     <build>
