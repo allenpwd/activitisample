@@ -1,5 +1,6 @@
 package pwd.allen.controller;
 
+import groovy.util.logging.Slf4j;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -29,9 +30,8 @@ import java.util.List;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RequestMapping("my")
 @Controller
+@Slf4j
 public class MyController {
-
-    private static final Logger logger = LoggerFactory.getLogger(MyController.class);
 
     @Autowired
     private RuntimeService runtimeService;
@@ -45,16 +45,6 @@ public class MyController {
     @Autowired
     private RepositoryService repositoryService;
 
-    @GetMapping(value = "person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Object pathVariable(@PathVariable String id) {
-        PersonInfo personInfo = new PersonInfo();
-        personInfo.setName("哦买噶");
-        personInfo.setAge(23);
-        personInfo.setId(id);
-        return personInfo;
-    }
-
     @RequestMapping("process")
     @ResponseBody
     public Object process(@RequestParam("action")String action
@@ -64,8 +54,8 @@ public class MyController {
         try {
             if ("start".equals(action)) {
                 HashMap<String, Object> varMap = new HashMap<>();
-                varMap.put("myJavaBean", new PersonInfo());
-                ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("springbootProcess", varMap);
+                varMap.put("personInfo", new PersonInfo());
+                ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("springboot-01", varMap);
                 return processInstance.getProcessInstanceId();
             } else if ("task".equals(action) && instId != null) {
                 TaskQuery taskQuery = taskService.createTaskQuery().processInstanceId(instId);

@@ -12,7 +12,12 @@
 		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
 		
 		<userTask id="someTask" name="Activiti is awesome!"
-				  activiti:candidateUsers="${myController.getCandidateUsers(execution)}" />
+				  activiti:candidateUsers="${myController.getCandidateUsers(execution)}" activiti:candidateGroups="${myJavaBean.getCandidateGroup()}">
+			<extensionElements>
+				<!-- TODO TaskListener的方法有执行到，但是数据表的assignee字段仍然为空 -->
+				<activiti:taskListener class="pwd.allen.listener.TaskListener2" event="create"/>
+			</extensionElements>
+		</userTask>
 		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
 
 		<endEvent id="end" />
