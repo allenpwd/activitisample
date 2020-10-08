@@ -8,3 +8,6 @@
 out
 gen
 *.log
+### pwd template
+**/target
+.gitignore

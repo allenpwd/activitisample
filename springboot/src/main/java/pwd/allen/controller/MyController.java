@@ -97,8 +97,4 @@ public class MyController {
         return task;
     }
 
-    public List<String> getCandidateUsers(DelegateExecution execution) {
-        return Arrays.asList("user1", "user2");
-    }
-
 }
