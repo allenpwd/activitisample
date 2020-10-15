@@ -1,0 +1,20 @@
+{
+  "key":"wc_site_advert",
+  "sequences":[
+    {
+      "sourceNode":"开始",
+      "targetNode":"提交申请",
+      "expression":"param.newAuditRecord.candidateGroup='SITE_MANAGER';"
+    },
+    {
+      "sourceNode":"提交申请",
+      "targetNode":"超管审批",
+      "expression":"param.newAuditRecord.candidateGroup='SUPER_MANAGER';param.resultMap.applyDate=new Date();"
+    },
+    {
+      "sourceNode":"超管审批",
+      "targetNode":"结束",
+      "expression":"param.resultMap.str='这是超管审批后提供的值';"
+    }
+  ]
+}
