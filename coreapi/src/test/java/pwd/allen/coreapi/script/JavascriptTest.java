@@ -13,7 +13,7 @@ import javax.script.ScriptException;
 public class JavascriptTest {
 
     /**
-     * 获取的是NashornScriptEngine脚本引擎，activiti内置的，它支持javascript
+     * 获取的是NashornScriptEngine脚本引擎，jdk内置的，它支持javascript
      * @see jdk.nashorn.api.scripting.NashornScriptEngineFactory
      * @throws ScriptException
      */
