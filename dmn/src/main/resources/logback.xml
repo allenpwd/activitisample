@@ -53,8 +53,8 @@
     <!--<logger name="com.github.miemiedev.mybatis.paginator" level="INFO" additivity="false" />-->
 
     <logger name="root" level="INFO" />
-    <!--<logger name="pwd.allen" level="DEBUG" />
-    <logger name="org.activiti.engine" level="DEBUG" />-->
+<!--    <logger name="pwd.allen" level="DEBUG" />-->
+    <logger name="org.activiti.engine" level="DEBUG" />
 
 
     <!-- Logger 根目录 -->

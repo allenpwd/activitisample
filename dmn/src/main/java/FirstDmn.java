@@ -58,5 +58,7 @@ public class FirstDmn {
         person.setAge(18);
         executionResult = ruleService.executeDecisionByKey(dmnDecisionTable.getKey(), params);
         logger.info("myResult = {}", executionResult.getResultVariables().get("myResult"));
+
+//        repositoryService.deleteDeployment(deploy.getId());
     }
 }

@@ -24,6 +24,10 @@
         <!--</repository>-->
     <!--</repositories>-->
 
+    <properties>
+        <activiti.version>6.0.0</activiti.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -32,13 +36,43 @@
         </dependency>
 
         <!--
+        activiti启动器
         org.activiti.spring.boot.SecurityAutoConfiguration有注解@AutoConfigureBefore({org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class})
         因为没有引入security相关jar，所以要排除该自动配置，否则会报错
         -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
-            <version>6.0.0</version>
+            <version>${activiti.version}</version>
+        </dependency>
+
+        <!-- Activiti 在线设计，里面有几个controller拿来用 -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-modeler</artifactId>
+            <version>5.22.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>activiti-engine</artifactId>
+                    <groupId>org.activiti</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>activiti-bpmn-model</artifactId>
+                    <groupId>org.activiti</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-security-config</artifactId>
+                    <groupId>org.springframework.security</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-security-web</artifactId>
+                    <groupId>org.springframework.security</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-security-crypto</artifactId>
+                    <groupId>org.springframework.security</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--测试引用发布到私服的个人项目-->

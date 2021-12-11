@@ -1,16 +1,21 @@
 package pwd.allen.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import groovy.util.logging.Slf4j;
+import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pwd.allen.entity.PersonInfo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +51,9 @@ public class MyController {
 
     @Autowired
     private RepositoryService repositoryService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @RequestMapping("process")
     @ResponseBody
@@ -95,6 +105,53 @@ public class MyController {
         }
 
         return task;
+    }
+
+    /**
+     * 模拟activiti explorer的新建模型
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("createModel")
+    public String createModel(HttpServletRequest request, HttpServletResponse response
+            , @RequestParam(name = "name", defaultValue = "流程demo") String name
+            , @RequestParam(name = "description", defaultValue = "这是一个流程demo") String description) {
+
+        String id = null;
+        try {
+            Model model = repositoryService.newModel();
+            model.setName(name);
+            model.setKey(name);
+            //模型分类 结合自己的业务逻辑
+            //model.setCategory(category);
+
+            ObjectNode modelNode = objectMapper.createObjectNode();
+            modelNode.put(ModelDataJsonConstants.MODEL_NAME, name);
+            modelNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
+            // 版本号
+            modelNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
+            model.setMetaInfo(modelNode.toString());
+
+            repositoryService.saveModel(model);
+            id = model.getId();
+
+            //完善ModelEditorSource
+            ObjectNode editorNode = objectMapper.createObjectNode()
+                    .put("id", "canvas")
+                    .put("resourceId", "canvas");
+            ObjectNode stencilSetNode = objectMapper.createObjectNode()
+                    .put("namespace", "http://b3mn.org/stencilset/bpmn2.0#");
+            editorNode.set("stencilset", stencilSetNode);
+            repositoryService.addModelEditorSource(id, editorNode.toString().getBytes("utf-8"));
+
+            // 转发到模型设计器页面
+            response.sendRedirect(request.getContextPath() + "/modeler.html?modelId=" + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "index";
     }
 
 }
