@@ -6,10 +6,12 @@
   <import resource="classpath:datasource/mysql.xml" />
 
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+    <property name="processEngineName" value="mysqlEngine" />
     <property name="dataSource" ref="dataSource" />
 
     <property name="databaseSchemaUpdate" value="true" />
-    <property name="historyLevel" value="AUDIT" />
+<!--    <property name="historyLevel" value="AUDIT" />-->
+    <property name="history" value="audit" />
 
     <!-- 解决发布部署模型获取图片中文乱码 -->
     <property name="activityFontName" value="宋体" />

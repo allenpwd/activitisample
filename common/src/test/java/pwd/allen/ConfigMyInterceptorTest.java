@@ -1,8 +1,10 @@
 package pwd.allen;
 
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.junit.Rule;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +21,8 @@ import java.util.Map;
  * @author pwd
  * @create 2019-04-07 18:23
  **/
+@Slf4j
 public class ConfigMyInterceptorTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigMyInterceptorTest.class);
 
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti_interceptor.cfg.xml");
@@ -30,12 +32,15 @@ public class ConfigMyInterceptorTest {
     public void test() {
 
         Map<String, ProcessEngine> processEngines = ProcessEngines.getProcessEngines();
-        System.out.println(processEngines.size());
+        log.info(processEngines.toString());
 
-        Map<String, Object> vars = new HashMap<String, Object>();
-        vars.put("day", 10);
-        ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process", vars);
-//        Task task = activitiRule.getTaskService().createTaskQuery().singleResult();
-//        activitiRule.getTaskService().complete(task.getId());
+        // 这里会产生StartProcessInstanceCmd命令
+        ProcessInstance processInstance = activitiRule.getRuntimeService()
+                .startProcessInstanceByKey("my-process", Collections.singletonMap("day", 10));
+        // 这里会产生TaskQueryImpl命令
+        Task task = activitiRule.getTaskService().createTaskQuery().singleResult();
+        // 这里会产生CompleteTaskCmd命令
+        activitiRule.getTaskService().complete(task.getId());
+        log.info("");
     }
 }

@@ -1,5 +1,6 @@
 package pwd.allen;
 
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -29,9 +30,8 @@ import java.util.Map;
  * @author pwd
  * @create 2019-04-07 18:23
  **/
+@Slf4j
 public class ConfigHistoryLevelTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigHistoryLevelTest.class);
 
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti_history.cfg.xml");
@@ -50,30 +50,23 @@ public class ConfigHistoryLevelTest {
         submitTaskFormData();
 
         /** 输出历史内容 **/
-        LOGGER.info("-----输出历史活动-----");
+        log.info("-----输出历史活动-----");
         showHistoryActivity();
-        LOGGER.info("-----输出历史变量-----");
+        log.info("-----输出历史变量-----");
         showHistoryVariable();
 
-        LOGGER.info("-----输出历史表单任务-----");
+        // 记录条件：audit以上
+        log.info("-----输出历史表单任务-----");
         showHistoryTask();
 
-        LOGGER.info("-----输出历史详情的表单-----");
+        // 记录条件：audit以上
+        log.info("-----输出历史详情的表单-----");
         showHistoryForm();
 
-        LOGGER.info("-----输出历史详情-----");
+        // 记录条件：audit以上
+        log.info("-----输出历史详情-----");
         showHistoryDetail();
 
-    }
-
-    private void showHistoryDetail() {
-        List<HistoricDetail> historicDetails = activitiRule.getHistoryService()
-                .createHistoricDetailQuery()
-                .listPage(0, 100);
-        for (HistoricDetail historicDetail : historicDetails) {
-            LOGGER.info("historicDetail = {}", toString(historicDetail));
-        }
-        LOGGER.info("historicDetails.size = {}", historicDetails.size());
     }
 
     private void showHistoryForm() {
@@ -82,9 +75,19 @@ public class ConfigHistoryLevelTest {
                 .formProperties()
                 .listPage(0, 100);
         for (HistoricDetail historicDetail : historicDetailsForm) {
-            LOGGER.info("historicDetail = {}", historicDetail);
+            log.info("historicDetailsForm = {}", historicDetail);
         }
-        LOGGER.info("historicDetailsForm.size = {}", historicDetailsForm.size());
+        log.info("historicDetailsForm.size = {}", historicDetailsForm.size());
+    }
+
+    private void showHistoryDetail() {
+        List<HistoricDetail> historicDetails = activitiRule.getHistoryService()
+                .createHistoricDetailQuery()
+                .listPage(0, 100);
+        for (HistoricDetail historicDetail : historicDetails) {
+            log.info("historicDetail = {}", toString(historicDetail));
+        }
+        log.info("historicDetails.size = {}", historicDetails.size());
     }
 
     private void showHistoryTask() {
@@ -92,18 +95,18 @@ public class ConfigHistoryLevelTest {
                 .createHistoricTaskInstanceQuery()
                 .listPage(0, 100);
         for (HistoricTaskInstance historicTaskInstance : historicTaskInstances) {
-            LOGGER.info("historicTaskInstance = {}", historicTaskInstance);
+            log.info("historicTaskInstance = {}", historicTaskInstance);
         }
-        LOGGER.info("historicTaskInstances.size = {}", historicTaskInstances.size());
+        log.info("historicTaskInstances.size = {}", historicTaskInstances.size());
     }
 
     private void showHistoryVariable() {
         List<HistoricVariableInstance> historicVariableInstances = activitiRule.getHistoryService().createHistoricVariableInstanceQuery()
                 .listPage(0, 100);
         for (HistoricVariableInstance historicVariableInstance : historicVariableInstances) {
-            LOGGER.info("historicVariableInstance = {}", historicVariableInstance);
+            log.info("historicVariableInstance = {}", historicVariableInstance);
         }
-        LOGGER.info("historicVariableInstances.size = {}", historicVariableInstances.size());
+        log.info("historicVariableInstances.size = {}", historicVariableInstances.size());
     }
 
     private void showHistoryActivity() {
@@ -111,9 +114,9 @@ public class ConfigHistoryLevelTest {
                 .createHistoricActivityInstanceQuery()
                 .listPage(0, 100);
         for (HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
-            LOGGER.info("historicActivityInstance = {}", historicActivityInstance);
+            log.info("historicActivityInstance = {}", historicActivityInstance);
         }
-        LOGGER.info("historicActivityInstances.size = {}", historicActivityInstances.size());
+        log.info("historicActivityInstances.size = {}", historicActivityInstances.size());
     }
 
     private void submitTaskFormData() {
@@ -128,9 +131,9 @@ public class ConfigHistoryLevelTest {
         List<Execution> executions = activitiRule.getRuntimeService().createExecutionQuery()
                 .listPage(0, 100);
         for (Execution execution : executions) {
-            LOGGER.info("execution = {}", execution);
+            log.info("execution = {}", execution);
         }
-        LOGGER.info("executions.size = {}", executions.size());
+        log.info("executions.size = {}", executions.size());
         String id = executions.get(0).getId();
         activitiRule.getRuntimeService().setVariable(id, "keyStart1", "value1_");
     }

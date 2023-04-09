@@ -1,5 +1,6 @@
 package pwd.allen.delegate;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
  * @create 2019-04-20 21:36
  **/
 @Service
+@Slf4j
 public class HelloBean {
-    private static final Logger logger = LoggerFactory.getLogger(HelloBean.class);
     public void sayHello(String type) {
-        logger.info("------------------{}：say hello", this.getClass().getSimpleName());
+        log.info("------------------{}：say hello：{}", this.getClass().getSimpleName(), type);
+
+        // 如果在执行service时抛出异常，会：org.activiti.engine.ActivitiException: Could not execute service task expression
         if ("error".equals(type)) {
             throw new RuntimeException("我是个错误");
         }

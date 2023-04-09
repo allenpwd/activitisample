@@ -1,23 +1,18 @@
-DELETE  FROM  `act_hi_attachment`;
-DELETE  FROM  `act_hi_comment`;
-DELETE  FROM  `act_hi_detail`;
-DELETE  FROM  `act_hi_actinst`;
-DELETE  FROM  `act_hi_identitylink`;
-
-DELETE  FROM  `act_hi_procinst`;
-DELETE  FROM  `act_hi_taskinst`;
-DELETE  FROM  `act_hi_varinst`;
-DELETE  FROM  `act_ru_identitylink`;
-
-DELETE  FROM  `act_ru_task`;
-
-DELETE  FROM  `act_ru_variable`;
-
--- 删这个比较麻烦
-DELETE  FROM  `act_ru_execution`;
-
-DELETE  FROM act_ge_bytearray;
-
-DELETE  FROM act_re_model;
-DELETE  FROM act_re_procdef;
-DELETE  FROM act_re_deployment
+-- 关闭外键约束检查
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE `act_hi_attachment`;
+TRUNCATE TABLE `act_hi_comment`;
+TRUNCATE TABLE `act_hi_detail`;
+TRUNCATE TABLE `act_hi_actinst`;
+TRUNCATE TABLE `act_hi_identitylink`;
+TRUNCATE TABLE `act_hi_procinst`;
+TRUNCATE TABLE `act_hi_taskinst`;
+TRUNCATE TABLE `act_hi_varinst`;
+TRUNCATE TABLE `act_ru_identitylink`;
+TRUNCATE TABLE `act_ru_task`;
+TRUNCATE TABLE `act_ru_variable`;
+TRUNCATE TABLE `act_ru_execution`;
+TRUNCATE TABLE act_ge_bytearray;
+TRUNCATE TABLE act_re_model;
+TRUNCATE TABLE act_re_procdef;
+TRUNCATE TABLE act_re_deployment

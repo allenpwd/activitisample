@@ -6,6 +6,7 @@
   <import resource="classpath:datasource/h2.xml" />
 
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+    <property name="processEngineName" value="h2Engine" />
     <property name="dataSource" ref="dataSource" />
 
     <property name="databaseSchemaUpdate" value="true" />

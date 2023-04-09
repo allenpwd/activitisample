@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DBTest2 {
 
     /**
+     * 清空表数据
      * @Sql是spring test的功能，应该需要在spring容器中有个dataSource
      */
     @Test
